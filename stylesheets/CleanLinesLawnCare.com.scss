@@ -1,2 +1,13 @@
 @import "bootstrap";
 
+@import "variables/images";
+
+@import "components/shadows";
+@import "components/parallax";
+@import "components/logo";
+
+body{
+    padding-top: 50px;
+
+    overflow-x: hidden;
+}

@@ -1,0 +1,40 @@
+.parallax{
+    position: relative;
+
+    display: block;
+
+    min-width: 100vw;
+    width: 100vw;
+    max-width: 100vw;
+
+    min-height: 200px;
+    height: 200px;
+    max-height: 200px;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    opacity: 0.9;
+
+    &#parallax-grass{
+        background-color: #57975e;
+        background-image: $image-background-grass;
+        background-size: auto 200px;
+        background-position: 0 50px;
+    }
+    margin-bottom: 100000px;
+}
+
+@media only screen and (max-width: 950px){
+    .parallax{
+        min-height: 100px;
+        height: 100px;
+        max-height: 100px;
+
+        &#parallax-grass{
+            background-position: 0 0;
+        }
+    }
+}
