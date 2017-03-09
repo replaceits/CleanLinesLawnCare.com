@@ -61,6 +61,13 @@ IMAGES_TMP_TARGET  = $(shell echo $(IMAGES_PATH) | $(ESCAPE_SED))
 IMAGES_TMP_TARGET_PATH = $(shell echo $(IMAGES_TARGET_PATH) | $(ESCAPE_SED))
 IMAGES_TARGETS     = $(shell echo $(IMAGES_FILES) | sed 's/$(IMAGES_TMP_TARGET)/$(IMAGES_TMP_TARGET_PATH)/g')
 
+FONTS_PATH        = ./fonts/bootstrap/
+FONTS_FILES       = $(shell find $(FONTS_PATH) -type f -name '*.*')
+FONTS_TARGET_PATH = $(BUILD_PATH)fonts/bootstrap/
+FONTS_TMP_TARGET  = $(shell echo $(FONTS_PATH) | $(ESCAPE_SED))
+FONTS_TMP_TARGET_PATH = $(shell echo $(FONTS_TARGET_PATH) | $(ESCAPE_SED))
+FONTS_TARGETS     = $(shell echo $(FONTS_FILES) | sed 's/$(FONTS_TMP_TARGET)/$(FONTS_TMP_TARGET_PATH)/g')
+
 HTML_FILE = index.html
 MISC_FILES = humans.txt robots.txt sitemap.xml
 
@@ -68,9 +75,9 @@ BUILD_PATH_ESCAPED = $(shell echo $(BUILD_PATH) | $(ESCAPE_SED))
 HTML_FILE_TARGET = $(shell echo $(HTML_FILE) | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
 MISC_FILES_TARGET = $(shell echo $(MISC_FILES) | sed 's/ /\n/g' | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
 
-DIRECTORIES     = $(BUILD_PATH) $(JS_TARGET_PATH) $(CSS_TARGET_PATH) $(ERRORS_TARGET_PATH) $(REVIEWS_TARGET_PATH) $(CONTACT_TARGET_PATH) $(ESTIMATE_TARGET_PATH) $(SERViCES_TARGET_PATH) $(IMAGES_TARGET_PATH) $(FILES_TARGET_PATH)
+DIRECTORIES     = $(BUILD_PATH) $(JS_TARGET_PATH) $(CSS_TARGET_PATH) $(ERRORS_TARGET_PATH) $(REVIEWS_TARGET_PATH) $(CONTACT_TARGET_PATH) $(ESTIMATE_TARGET_PATH) $(SERViCES_TARGET_PATH) $(IMAGES_TARGET_PATH) $(FONTS_TARGET_PATH)
 
-all: | $(DIRECTORIES) css js errors reviews contact estimate services html misc images
+all: | $(DIRECTORIES) css js errors reviews contact estimate services html misc images fonts
 
 css: $(SCSS_FILES) | $(DIRECTORIES) $(CSS_TARGET) 
 
@@ -92,9 +99,16 @@ misc: $(MISC_FILES) | $(DIRECTORIES) $(MISC_FILES_TARGET)
 
 images: $(IMAGES_FILES) | $(DIRECTORIES) $(IMAGES_TARGETS)
 
+fonts: $(FONTS_FILES) | $(DIRECTORIES) $(FONTS_TARGETS)
+
 $(IMAGES_TARGETS): $(IMAGES_FILES)
-	@echo -e "Copying Images files...\t\t\t\c"
+	@echo -e "Copying Images...\t\t\t\c"
 	@cp $(IMAGES_FILES) $(IMAGES_TARGET_PATH)
+	@echo -e "[ Done ]"
+
+$(FONTS_TARGETS): $(FONTS_FILES)
+	@echo -e "Copying Fonts...\t\t\t\c"
+	@cp $(FONTS_FILES) $(FONTS_TARGET_PATH)
 	@echo -e "[ Done ]"
 
 $(HTML_FILE_TARGET): $(HTML_FILE)
@@ -156,6 +170,7 @@ $(DIRECTORIES):
 	@mkdir -p $(ESTIMATE_TARGET_PATH)
 	@mkdir -p $(SERVICES_TARGET_PATH)
 	@mkdir -p $(IMAGES_TARGET_PATH)
+	@mkdir -p $(FONTS_TARGET_PATH)
 	@mkdir -p $(JS_TARGET_PATH)
 	@mkdir -p $(JS_TARGET_PATH)/bootstrap/
 	@echo "[ Done ]"

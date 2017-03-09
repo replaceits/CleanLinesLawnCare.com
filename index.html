@@ -23,6 +23,7 @@
     </head>
 
     <body>
+        <!-- Header bar -->
         <nav class="navbar navbar-default navbar-fixed-top shadow-bottom">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -64,36 +65,138 @@
                 </div>
             </div>
         </nav>
+        <!-- End header bar -->
         
+        <!-- Logo display -->
         <div class="parallax shadow-in-bottom" id="parallax-grass">
             <div class="logo"></div>
         </div>
+        <!-- End logo -->
 
         <main class="container">
             <div class="row">
-                <div class="col-sm-12">
-                    <p class="text-justify">We are a full service Lawn care and Landscape company located in Scottsville serving all surrounding counties. We take pride in our work and strive for quality and reliability.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
+                <!-- Side bar for tablets and computers -->
+                <aside class="col-md-2 sidebar hidden-xs">
+                    Desktop
+                </aside>
+                <!-- End side bar -->
+
+                <!-- Main content of the page -->
+                <div class="col-md-9 col-xs-12 col-xs-offset-0 col-md-offset-1 main-content">
+                    <section class="row">
+                        <header class="col-md-12 text-center">
+                            <h3>About us</h3>
+                        </header>
+
+                        <div class="col-md-12 text-justify">
+                            <p>We are a full service Lawn care and Landscape company located in Scottsville serving all surrounding counties since 2015. We take pride in our work and strive for quality and reliability.</p>
+                        </div>
+                    </section>
+
                     <div class="row">
-                        <div class="col-sm-12">
-                            <h5>Reviews</h5>
+                        <div class="col-xs-12">
+                            <div class="spacer"></div>
+                            <hr>
+                            <div class="spacer"></div>
+                            <div class="spacer"></div>
                         </div>
                     </div>
+
+                    <section class="row">
+                        <header class="col-xs-12 text-center">
+                            <h3>Our work</h3>
+                        </header>
+
+                        <figure class="col-xs-12">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active">
+                                <img src="..." alt="...">
+                                <div class="carousel-caption">
+                                    ...
+                                </div>
+                                </div>
+                                <div class="item">
+                                <img src="..." alt="...">
+                                <div class="carousel-caption">
+                                    ...
+                                </div>
+                                </div>
+                                ...
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            </div>
+                        </figure>
+                    </section>
+
                     <div class="row">
-                        <div class="col-sm-12">
-                            Great service. Provided a reasonable estimate that was way under another company I had contacted. He arrived bright and early on the agreed upon day and worked quickly and quietly. Very professional and a very nice guy. Will definitely hire again.
+                        <div class="col-xs-12">
+                            <div class="spacer"></div>
+                            <hr>
+                            <div class="spacer"></div>
+                            <div class="spacer"></div>
                         </div>
                     </div>
+
+                    <section class="row">
+                        <figure class="col-md-4">
+                            <img class="img-responsive img-thumbnail center-block" src="images/lawn-example.jpg">
+                        </figure>
+
+                        <div class="col-md-8 text-center">
+                            <div class="row">
+                                <header class="col-xs-12">
+                                    <h3>See the difference we can make for you!</h3>
+                                </header>
+                            </div>
+
+                            <div class="spacer"></div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="spacer"></div>
+                                    <a class="btn btn-default" href="estimate">Get a free estimate</a>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="spacer"></div>
+                                    <a class="btn btn-default" href="contact">Contact us</a>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="spacer"></div>
+                                    <a class="btn btn-default" href="services">View our services</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-                <div class="col-md-10">
-                    
-                </div>
+                <!-- End main content -->
+
+                <!-- Side bar on mobile goes to the bottom of the page -->
+                <aside class="col-md-2 col-xs-12 sidebar visible-xs-block">
+                    Mobile
+                </aside>
+                <!-- End side bar -->
             </div>
         </main>
 
+        <!-- Footer -->
         <footer class="container-fluid footer">
             <div class="footer-item footer-item-left">
                 © 2017 Clean Lines Lawn Care
@@ -102,5 +205,6 @@
                 Site by <a href="https://www.replaceits.me">Sidney Williams</a>
             </div>
         </footer>
+        <!-- End footer -->
     </body>
 </html>
