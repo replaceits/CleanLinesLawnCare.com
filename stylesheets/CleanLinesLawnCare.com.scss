@@ -13,10 +13,14 @@
 
 @import "layout/footer";
 
+html{
+    position: relative;
+    min-height: 100%;
+}
+
 body{
     padding-top: 50px;
-
-    min-height: 100vh;
-
+    margin-bottom: 15px;
+    
     overflow-x: hidden;
 }
