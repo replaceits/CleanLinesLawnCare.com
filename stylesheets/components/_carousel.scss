@@ -1,0 +1,31 @@
+.carousel-inner{
+}
+
+.carousel .item {
+  height: 300px;
+
+  & img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        min-width: 100%;
+        width: 100%;
+
+        height: auto;
+
+        transform: translate(-50%,-50%);
+    }
+}
+
+@media only screen and (max-width: 770px){
+    .carousel .item{
+        height: 200px;
+    }
+}
+
+@media only screen and (max-width: 400px){
+    .carousel .item{
+        height: 175px;
+    }
+}
