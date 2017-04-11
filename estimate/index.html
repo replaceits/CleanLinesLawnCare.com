@@ -9,7 +9,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <base href="http://CleanLinesLawnCare.com">
+        <base href="http://www.cleanlineslawncare.com/">
 
         <title>Clean Lines Lawn Care - Free Estimate</title>
 
@@ -20,6 +20,7 @@
 
         <script defer type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script async defer src='https://www.google.com/recaptcha/api.js'></script>
     </head>
 
     <body>
@@ -73,10 +74,10 @@
         </div>
         <!-- End logo -->
 
-        <main class="container">
+        <main class="container-fluid">
             <div class="row">
                 <!-- Side bar for tablets and computers -->
-                <aside class="col-md-2 sidebar hidden-xs">
+                <aside class="col-md-2 col-md-offset-0 sidebar hidden-xs" style="margin-right: 10px;margin-left: 10px;">
                     <div class="row">
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;<a href="https://www.facebook.com/Clean-Lines-Lawn-Care-412959632223355/" target="_blank">Facebook</a>
@@ -115,7 +116,7 @@
                 <!-- End side bar -->
 
                 <!-- Main content of the page -->
-                <section class="col-md-9 col-xs-12 col-xs-offset-0 col-md-offset-1 main-content">
+                <div class="col-md-8 col-xs-12 col-xs-offset-0 col-md-offset-0 main-content">
                     <div class="row">
                         <header class="col-md-12 text-center">
                             <h3>Free Estimate</h3>
@@ -137,7 +138,7 @@
                         </div>
                     </div>
 
-                    <form action="estimate.php" method="POST">
+                    <form action="estimate.php" method="POST" id="estimate-form">
                         <section>
                             <div class="row">
                                 <header class="col-md-12 text-center">
@@ -245,19 +246,19 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Mowing">
                                             Mowing
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Leaf Removal">
                                             Leaf Removal
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Weed Control">
                                             Weed Control
                                         </label>
                                     </div>
@@ -272,19 +273,19 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Mulching">
                                             Mulching
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Shrubbery Care">
                                             Shrubbery Care
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Complete Lawn Service">
                                             Complete Lawn Service
                                         </label>
                                     </div>
@@ -299,19 +300,19 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Gutter Cleaning">
                                             Gutter Cleaning
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Pruning">
                                             Pruning
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Snow Removal">
                                             Snow Removal
                                         </label>
                                     </div>
@@ -328,7 +329,7 @@
                                 <div class="col-md-1 col-xs-2 col-md-offset-3 col-xs-offset-1">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ServicesList[]" value="">
+                                            <input type="checkbox" name="ServicesList[]" value="Other">
                                             Other
                                         </label>
                                     </div>
@@ -383,8 +384,11 @@
 
                         <div class="row">
                             <div class="col-xs-12 text-center">
-                                <button type="submit" class="btn btn-default">Get Estimate</button>
+                                <div id="submitButton" class="btn btn-default">Get Estimate</div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div id='recaptcha' class="g-recaptcha" data-sitekey="6Le-hxgUAAAAAGu_SqKn29-j4SCIivLanTOLR-tZ" data-callback="onSubmit" data-size="invisible"></div>
                         </div>
                     </form>
 
@@ -447,5 +451,68 @@
             </div>
         </footer>
         <!-- End footer -->
+
+        <script type="text/javascript">
+            function onSubmit(token){}
+
+            window.addEventListener('DOMContentLoaded', function() {
+                onSubmit = function(token){
+                    let valid = false;
+                    let invalidElement = null;
+                    let foundCheck = false;
+
+                    $('input[type="checkbox"]').each( function(){
+                        if( this.checked ){
+                            valid = true;
+                            if( !foundCheck && $(this).val() == "Other" ){
+                                if($('input[name="Other"]').val() <= 0){
+                                    valid = false;
+                                }
+                                foundCheck = true;
+                            }
+                        }
+                    });
+                    foundCheck = false;
+
+                    $('input:required').each( function(){
+                        if( $(this).val().length <= 0 ){
+                            valid = false;
+                            if (invalidElement == null) {
+                                invalidElement = $(this);
+                                $(window).delay(1000).scrollTop($(this).offset().top - 80);
+                            }
+                            $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                        } else {
+                            $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                        }
+                    });
+                    invalidElement = null;
+
+                    if (valid) {
+                        $.ajax({
+                            method: 'POST',
+                            url: 'estimate.php',
+                            cache: false,
+                            data: $('#estimate-form').serialize()
+                        }).done( function( msg ){
+                            alert(msg);
+                            console.log(msg);
+                        }).fail( function( jqXHR, textStatus ){
+
+                        });
+                    }
+                }
+
+                $('#submitButton').click(onSubmit);
+
+                $('input:required').on("change paste keyup", function(){
+                    if($(this).val().length > 0 && $(this).val().length < 255){
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                    } else {
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

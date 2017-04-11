@@ -69,7 +69,7 @@ FONTS_TMP_TARGET_PATH = $(shell echo $(FONTS_TARGET_PATH) | $(ESCAPE_SED))
 FONTS_TARGETS     = $(shell echo $(FONTS_FILES) | sed 's/$(FONTS_TMP_TARGET)/$(FONTS_TMP_TARGET_PATH)/g')
 
 HTML_FILE = index.html
-MISC_FILES = humans.txt robots.txt sitemap.xml
+MISC_FILES = humans.txt robots.txt sitemap.xml message.php estimate.php
 
 BUILD_PATH_ESCAPED = $(shell echo $(BUILD_PATH) | $(ESCAPE_SED))
 HTML_FILE_TARGET = $(shell echo $(HTML_FILE) | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
