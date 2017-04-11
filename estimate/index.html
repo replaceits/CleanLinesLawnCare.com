@@ -388,7 +388,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div id='recaptcha' class="g-recaptcha" data-sitekey="6Le-hxgUAAAAAGu_SqKn29-j4SCIivLanTOLR-tZ" data-callback="onSubmit" data-size="invisible"></div>
+                            <div id='recaptcha' class="g-recaptcha" data-sitekey="6Le-hxgUAAAAAGu_SqKn29-j4SCIivLanTOLR-tZ" data-callback="captchaSubmit" data-size="invisible"></div>
                         </div>
                     </form>
 
@@ -454,6 +454,7 @@
 
         <script type="text/javascript">
             function onSubmit(token){}
+            function captchaSubmit(token){}
 
             window.addEventListener('DOMContentLoaded', function() {
                 onSubmit = function(token){
@@ -489,19 +490,26 @@
                     invalidElement = null;
 
                     if (valid) {
-                        $.ajax({
-                            method: 'POST',
-                            url: 'estimate.php',
-                            cache: false,
-                            data: $('#estimate-form').serialize()
-                        }).done( function( msg ){
-                            alert(msg);
-                            console.log(msg);
-                        }).fail( function( jqXHR, textStatus ){
-
-                        });
+                        grecaptcha.execute();
+                    } else {
+                        
                     }
                 }
+
+                captchaSubmit = function(token){
+                    $.ajax({
+                        method: 'POST',
+                        url: 'estimate.php',
+                        cache: false,
+                        data: $('#estimate-form').serialize()
+                    }).done( function( msg ){
+                        alert(msg);
+                        console.log(msg);
+                    }).fail( function( jqXHR, textStatus ){
+
+                    });
+                }
+
 
                 $('#submitButton').click(onSubmit);
 

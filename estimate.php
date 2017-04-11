@@ -28,6 +28,7 @@
     $comments  = null;
     
     $services  = $_POST['ServicesList'];
+    
     foreach ($services as &$service) {
         $service = trim(stripslashes(htmlspecialchars($service)));
         if ($service == "Other" && isset($_POST['Other'])) {
@@ -108,15 +109,15 @@
 
     $message .= "Services: \n";  
       
-    foreach ($services as $service) {
-        if( $service == "Other" ){
+    foreach ($services as &$service) {
+        if( $service === "Other" ){
             $message .= "    " . $service . ": " . $other . "\n";
         } else {
             $message .= "    " . $service . "\n";
         }
     }
 
-    $message .= "Start Date : " . $startDate  . "\n";
+    $message .= "\nStart Date : " . $startDate  . "\n";
     $message .= "Time of Day: " . $time  . "\n";
 
     if ($comments != null && !empty($comments)) {
