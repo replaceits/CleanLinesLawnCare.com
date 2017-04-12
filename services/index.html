@@ -76,7 +76,7 @@
         <main class="container">
             <div class="row">
                 <!-- Side bar for tablets and computers -->
-                <aside class="col-md-2 sidebar hidden-xs" style="margin-right: 10px; margin-bottom: 10px;">
+                <aside class="col-md-2 sidebar hidden-xs computer-sidebar">
                     <div class="row">
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;<a href="https://www.facebook.com/Clean-Lines-Lawn-Care-412959632223355/" target="_blank">Facebook</a>
@@ -115,7 +115,7 @@
                 <!-- End side bar -->
 
                 <!-- Main content of the page -->
-                <div class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-0 main-content" style="margin-right: -10px;">
+                <section class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-0 main-content" style="margin-right: -10px;">
                     <div class="row">
                         <header class="col-md-12 text-center">
                             <h3>Services</h3>
@@ -129,9 +129,19 @@
                         </div>
                     </div>
 
-                    <section class="row">
-                        <div class="col-md-12 text-center">
-                            <h4>New Installation</h4>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4>New Installation</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
+                                <div class="thumbnail">
+                                    <img src="images/newinstallation.jpg" alt="New Installation">
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -168,9 +178,19 @@
                         </div>
                     </div>
 
-                    <section class="row">
-                        <div class="col-md-12 text-center">
-                            <h4>Mowing</h4>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4>Mowing</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
+                                <div class="thumbnail">
+                                    <img src="images/lawn-example.jpg" alt="Mowing">
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -277,9 +297,19 @@
                         </div>
                     </div>
 
-                    <section class="row">
-                        <div class="col-md-12 text-center">
-                            <h4>Complete Lawn Service</h4>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4>Complete Lawn Service</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
+                                <div class="thumbnail">
+                                    <img src="images/complete.jpg" alt="Complete Lawn Service">
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -295,9 +325,28 @@
                             <h4>Snow Removal</h4>
                         </div>
                     </section>
-
                 </section>
                 <!-- End main content -->
+
+                <div id="imageModal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document" style="min-width:0px;width:auto;display: table;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <img id="modal-image" src="" class="img-responsive" style="margin: auto;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 
                 <!-- Side bar on mobile goes to the bottom of the page -->
                 <aside class="col-md-2 col-xs-12 sidebar visible-xs-block">
@@ -355,5 +404,15 @@
             </div>
         </footer>
         <!-- End footer -->
+        <script type="text/javascript">
+            window.addEventListener('DOMContentLoaded', function() {
+                if(!window.matchMedia("only screen and (min-device-width: 320px) and (max-device-width: 480px)").matches){
+                    $('.main-content img').click(function(){
+                        $('#modal-image').attr('src',$(this).attr('src'));
+                        $('#imageModal').modal('show');
+                    }).css('cursor', 'pointer');
+                }
+            });
+        </script>
     </body>
 </html>
