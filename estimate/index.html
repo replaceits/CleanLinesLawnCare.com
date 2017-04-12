@@ -116,7 +116,36 @@
                 <!-- End side bar -->
 
                 <!-- Main content of the page -->
-                <div class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-0 main-content" style="margin-right: -10px;">
+                <div id="completed-form" class="hidden col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-0 main-content" style="margin-right: -10px;">
+                    <div class="row">
+                        <header class="col-md-12 text-center">
+                            <h3>Free Estimate</h3>
+                        </header>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <div class="row">
+                            <header class="col-md-12 text-center">
+                                <h4 id="completed-form-status"></h4>
+                            </header>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p id="completed-form-content"></p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="estimate-form-content" class="col-md-10 col-xs-12 col-xs-offset-0 col-md-offset-0 main-content" style="margin-right: -10px;">
                     <div class="row">
                         <header class="col-md-12 text-center">
                             <h3>Free Estimate</h3>
@@ -384,11 +413,32 @@
 
                         <div class="row">
                             <div class="col-xs-12 text-center">
-                                <div id="submitButton" class="btn btn-default">Get Estimate</div>
+                                <div id="submitButton" class="btn btn-primary">Get Estimate</div>
                             </div>
                         </div>
                         <div class="row">
-                            <div id='recaptcha' class="g-recaptcha" data-sitekey="6Le-hxgUAAAAAGu_SqKn29-j4SCIivLanTOLR-tZ" data-callback="captchaSubmit" data-size="invisible"></div>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+                            <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title">Error</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-center">You must fill in all of the required fields</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id='recaptcha' class="g-recaptcha" data-sitekey="6Le-hxgUAAAAAGu_SqKn29-j4SCIivLanTOLR-tZ" data-callback="captchaSubmit" data-size="invisible"></div>
+                            </div>
                         </div>
                     </form>
 
@@ -492,7 +542,8 @@
                     if (valid) {
                         grecaptcha.execute();
                     } else {
-                        
+                        $('.modal-body p').text("You must fill in all of the required fields.");
+                        $('#myModal').modal('show');
                     }
                 }
 
@@ -503,10 +554,13 @@
                         cache: false,
                         data: $('#estimate-form').serialize()
                     }).done( function( msg ){
-                        alert(msg);
-                        console.log(msg);
+                        $('#completed-form-status').text("Success");
+                        $('#completed-form-content').html("Your message has been sent!<br>We will get back to you with your estimate as soon as we can.");
+                        $('#estimate-form-content').fadeOut(250,function(){$('#completed-form').removeClass('hidden').fadeOut(0).fadeIn(250);});
                     }).fail( function( jqXHR, textStatus ){
-
+                        $('#completed-form-status').text("Error");
+                        $('#completed-form-content').html("We're sorry but something wen't wrong :(<br>Please try again later.");
+                        $('#estimate-form-content').fadeOut(250,function(){$('#completed-form').removeClass('hidden').fadeOut(0).fadeIn(250);});
                     });
                 }
 

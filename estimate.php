@@ -28,7 +28,7 @@
     $comments  = null;
     
     $services  = $_POST['ServicesList'];
-    
+
     foreach ($services as &$service) {
         $service = trim(stripslashes(htmlspecialchars($service)));
         if ($service == "Other" && isset($_POST['Other'])) {
@@ -135,8 +135,6 @@
             'X-Priority: 1' . "\r\n" .
             'X-Mailer: PHP/' . phpversion() . "\r\n"
     );
-
-    echo $message;
 
     http_response_code(200);
     echo "Success!";
