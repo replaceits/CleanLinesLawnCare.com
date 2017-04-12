@@ -10,7 +10,7 @@
           empty($_POST['Time'     ]) ||  empty($_POST['g-recaptcha-response'])) {
         
         http_response_code(400);
-        echo "Invalid request";
+        echo("Invalid request");
         exit(0);
     }
 
@@ -67,7 +67,7 @@
 
     if (!$valid_captcha) {
         http_response_code(400);
-        echo "Invalid captcha";
+        echo("Invalid captcha");
         exit(0);
     }
 
@@ -100,9 +100,9 @@
 
     // Format email to be sent
     $message  = "First Name: " . $firstName . "\n";
-    $message .= "Last Name: " . $lastName  . "\n";
-    $message .= "Email: " . $email     . "\n";
-    $message .= "Phone: " . $phone  . "\n\n";
+    $message .= "Last Name: "  . $lastName  . "\n";
+    $message .= "Email: "      . $email     . "\n";
+    $message .= "Phone: "      . $phone     . "\n\n";
 
     $message .= $address  . "\n";
     $message .= $city . ", " . $state . " " . $zipCode . "\n\n";
@@ -118,7 +118,7 @@
     }
 
     $message .= "\nStart Date : " . $startDate  . "\n";
-    $message .= "Time of Day: " . $time  . "\n";
+    $message .= "Time of Day: "   . $time       . "\n";
 
     if ($comments != null && !empty($comments)) {
         $message .= "Comments   : " . $comments  . "\n";
@@ -128,7 +128,7 @@
     mail("sidwil0790@students.ecpi.edu", 
         "Estimate Request - " . $firstName . " " . $lastName, 
         $message, 
-        'From: contact@replaceits.me' . "\r\n" .
+        'From: estimate@cleanlineslawncare.com' . "\r\n" .
             'Reply-To: ' . $email . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/plain; charset=utf-8' . "\r\n" .
@@ -137,6 +137,6 @@
     );
 
     http_response_code(200);
-    echo "Success!";
+    echo("Success!");
     exit(0);
 ?>
