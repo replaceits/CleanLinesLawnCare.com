@@ -13,7 +13,7 @@
     $lastName  = trim(stripslashes(htmlspecialchars($_POST['LastName' ])));
     $email     = trim(stripslashes(htmlspecialchars($_POST['Email'    ])));
     $phone     = trim(stripslashes(htmlspecialchars($_POST['Phone'    ])));
-    $message   = trim(stripslashes(htmlspecialchars($_POST['Message'  ])));
+    $formMessage   = trim(stripslashes(htmlspecialchars($_POST['Message'  ])));
 
     $api_key = file_get_contents('/api-keys/invisiblerecaptcha.key');
 
@@ -50,7 +50,7 @@
     $message .= "Last Name: "  . $lastName  . "\n";
     $message .= "Email: "      . $email     . "\n";
     $message .= "Phone: "      . $phone     . "\n\n";
-    $message .= "Message: "    . $message   . "\n";
+    $message .= "Message: "    . $formMessage   . "\n";
 
     // Send the estimate request to email
     mail("sidwil0790@students.ecpi.edu", 
