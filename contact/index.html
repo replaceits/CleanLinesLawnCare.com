@@ -15,8 +15,12 @@
 
         <link rel="stylesheet" href="css/CleanLinesLawnCare.com.css">
 
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#169113">
+        <meta name="theme-color" content="#ffffff">
 
         <script defer type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -323,6 +327,13 @@
                             $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
                         }
                     });
+                    if($('textarea').val().length <= 0){
+                        valid = false;
+                        $('textarea').parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                    } else {
+                        $('textarea').parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                    }
+
                     invalidElement = null;
 
                     if (valid) {
@@ -353,6 +364,14 @@
                 $('#submitButton').click(onSubmit);
 
                 $('input:required').on("change paste keyup", function(){
+                    if($(this).val().length > 0 && $(this).val().length < 255){
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                    } else {
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                    }
+                });
+                
+                $('textarea').on("change paste keyup", function(){
                     if($(this).val().length > 0 && $(this).val().length < 255){
                         $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
                     } else {
