@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /errors/
+Disallow: /message.php
+Disallow: /estimate.php
+Disallow: /humans.txt
+Allow: /
+
+Sitemap: https://www.cleanlineslawncare.com/sitemap.xml

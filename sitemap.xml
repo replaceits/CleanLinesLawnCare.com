@@ -1,0 +1,27 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://www.cleanlineslawncare.com/</loc>
+		<changefreq>monthly</changefreq>
+		<priority>1.00</priority>
+	</url>
+    <url>
+		<loc>https://www.cleanlineslawncare.com/contact/</loc>
+		<changefreq>monthly</changefreq>
+		<priority>1.00</priority>
+	</url>
+    <url>
+		<loc>https://www.cleanlineslawncare.com/estimate/</loc>
+		<changefreq>monthly</changefreq>
+		<priority>1.00</priority>
+	</url>
+    <url>
+		<loc>https://www.cleanlineslawncare.com/reviews/</loc>
+		<changefreq>monthly</changefreq>
+		<priority>1.00</priority>
+	</url>
+    <url>
+		<loc>https://www.cleanlineslawncare.com/services/</loc>
+		<changefreq>monthly</changefreq>
+		<priority>1.00</priority>
+	</url>
+</urlset>
