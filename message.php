@@ -53,7 +53,7 @@
     $message .= "Message: "    . $formMessage   . "\n";
 
     // Send the estimate request to email
-    mail("sidwil0790@students.ecpi.edu", 
+    mail("exmark845@gmail.com", 
         "Contact Form - " . $firstName . " " . $lastName, 
         $message, 
         'From: contact@cleanlineslawncare.com' . "\r\n" .

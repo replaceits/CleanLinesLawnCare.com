@@ -125,7 +125,7 @@
     }
 
     // Send the estimate request to email
-    mail("sidwil0790@students.ecpi.edu", 
+    mail("exmark845@gmail.com", 
         "Estimate Request - " . $firstName . " " . $lastName, 
         $message, 
         'From: estimate@cleanlineslawncare.com' . "\r\n" .
