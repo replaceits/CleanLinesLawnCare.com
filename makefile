@@ -54,6 +54,13 @@ SERVICES_TMP_TARGET  = $(shell echo $(SERVICES_PATH) | $(ESCAPE_SED))
 SERVICES_TMP_TARGET_PATH = $(shell echo $(SERVICES_TARGET_PATH) | $(ESCAPE_SED))
 SERVICES_TARGETS     = $(shell echo $(SERVICES_FILES) | sed 's/$(SERVICES_TMP_TARGET)/$(SERVICES_TMP_TARGET_PATH)/g')
 
+GALLERY_PATH        = ./gallery/
+GALLERY_FILES       = $(shell find $(GALLERY_PATH) -type f -name '*.*')
+GALLERY_TARGET_PATH = $(BUILD_PATH)gallery/
+GALLERY_TMP_TARGET  = $(shell echo $(GALLERY_PATH) | $(ESCAPE_SED))
+GALLERY_TMP_TARGET_PATH = $(shell echo $(GALLERY_TARGET_PATH) | $(ESCAPE_SED))
+GALLERY_TARGETS     = $(shell echo $(GALLERY_FILES) | sed 's/$(GALLERY_TMP_TARGET)/$(GALLERY_TMP_TARGET_PATH)/g')
+
 IMAGES_PATH        = ./images/
 IMAGES_FILES       = $(shell find $(IMAGES_PATH) -type f -name '*.*')
 IMAGES_TARGET_PATH = $(BUILD_PATH)images/
@@ -75,9 +82,9 @@ BUILD_PATH_ESCAPED = $(shell echo $(BUILD_PATH) | $(ESCAPE_SED))
 HTML_FILE_TARGET = $(shell echo $(HTML_FILE) | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
 MISC_FILES_TARGET = $(shell echo $(MISC_FILES) | sed 's/ /\n/g' | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
 
-DIRECTORIES     = $(BUILD_PATH) $(JS_TARGET_PATH) $(CSS_TARGET_PATH) $(ERRORS_TARGET_PATH) $(REVIEWS_TARGET_PATH) $(CONTACT_TARGET_PATH) $(ESTIMATE_TARGET_PATH) $(SERViCES_TARGET_PATH) $(IMAGES_TARGET_PATH) $(FONTS_TARGET_PATH)
+DIRECTORIES     = $(BUILD_PATH) $(JS_TARGET_PATH) $(CSS_TARGET_PATH) $(ERRORS_TARGET_PATH) $(REVIEWS_TARGET_PATH) $(CONTACT_TARGET_PATH) $(ESTIMATE_TARGET_PATH) $(SERVICES_TARGET_PATH) $(GALLERY_TARGET_PATH) $(IMAGES_TARGET_PATH) $(FONTS_TARGET_PATH)
 
-all: | $(DIRECTORIES) css js errors reviews contact estimate services html misc images fonts
+all: | $(DIRECTORIES) css js errors reviews contact estimate services gallery html misc images fonts
 
 css: $(SCSS_FILES) | $(DIRECTORIES) $(CSS_TARGET) 
 
@@ -92,6 +99,8 @@ contact: $(CONTACT_FILES) | $(DIRECTORIES) $(CONTACT_TARGETS)
 estimate: $(ESTIMATE_FILES) | $(DIRECTORIES) $(ESTIMATE_TARGETS)
 
 services: $(SERVICES_FILES) | $(DIRECTORIES) $(SERVICES_TARGETS)
+
+gallery: $(GALLERY_FILES) | $(DIRECTORIES) $(GALLERY_TARGETS)
 
 html: $(HTML_FILE) | $(DIRECTORIES) $(HTML_FILE_TARGET)
 
@@ -146,6 +155,11 @@ $(SERVICES_TARGETS): $(SERVICES_FILES)
 	@cp $(SERVICES_FILES) $(SERVICES_TARGET_PATH)
 	@echo -e "[ Done ]"
 
+$(GALLERY_TARGETS): $(GALLERY_FILES)
+	@echo -e "Copying Gallery files...\t\t\c"
+	@cp $(GALLERY_FILES) $(GALLERY_TARGET_PATH)
+	@echo -e "[ Done ]"
+
 $(CSS_TARGET): $(SCSS_FILES)
 	@echo -e "Compiling SCSS...\t\t\t\c"
 	@scss -C --sourcemap=none $(SCSS_MAIN) $(CSS_TARGET) -t compressed 
@@ -169,6 +183,7 @@ $(DIRECTORIES):
 	@mkdir -p $(CONTACT_TARGET_PATH)
 	@mkdir -p $(ESTIMATE_TARGET_PATH)
 	@mkdir -p $(SERVICES_TARGET_PATH)
+	@mkdir -p $(GALLERY_TARGET_PATH)
 	@mkdir -p $(IMAGES_TARGET_PATH)
 	@mkdir -p $(FONTS_TARGET_PATH)
 	@mkdir -p $(JS_TARGET_PATH)
