@@ -62,13 +62,16 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="">Home <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="reviews">Reviews</a></li>
+                        <li><a href="">Home</a></li>
+                        <li class="active"><a href="reviews">Reviews <span class="sr-only">(current)</span></a></li>
+                        <li><a href="gallery">Gallery</a></li>
                         <li><a href="contact">Contact Us</a></li>
                         <li><a href="estimate">Free Estimate</a></li>
                         <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services<span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a href="services">All Services</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="services#NewInstallation">New Installation</a></li>
                             <li><a href="services#SeeingFertilizing">Seeding &amp; Fertilizing</a></li>
                             <li><a href="services#LawnAeration">Lawn Aeration</a></li>
@@ -81,8 +84,6 @@
                             <li><a href="services#WeedControl">Weed Control</a></li>
                             <li><a href="services#CompleteLawnService">Complete Lawn Service</a></li>
                             <li><a href="services#SnowRemoval">Snow Removal</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="services">All Services</a></li>
                         </ul>
                         </li>
                     </ul>
@@ -184,7 +185,17 @@
                                                 <blockquote>
                                                     <p>
                                                         <?php
-                                                            echo(str_replace("\n","<br>",htmlspecialchars($review_content)));
+                                                            //Remove redundant new lines
+                                                            $review_content = str_replace("\r\n","<br>",htmlspecialchars($review_content));
+                                                            $review_content = str_replace("\n\r","<br>",$review_content);
+                                                            $review_content = str_replace("\r",  "<br>",$review_content);
+                                                            $review_content = str_replace("\n",  "<br>",$review_content);
+
+                                                            while(strpos($review_content, "<br><br><br>") !== false){
+                                                                $review_content = str_replace("<br><br><br>","<br><br>",$review_content);
+                                                            }
+
+                                                            echo($review_content);
                                                         ?>
                                                     </p>
                                                     <footer>
