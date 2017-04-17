@@ -1,0 +1,168 @@
+<?php
+    session_start();
+
+    if(isset($_SESSION['email']) || !empty($_SESSION['email'])){
+        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "admin.php");
+        exit(0);
+    }
+
+    $logging_in = false;
+    $valid_login = false;
+
+    if(isset($_POST['password']) && !empty($_POST['password'])
+        && isset($_POST['email']) && !empty($_POST['email'])){
+        $logging_in = true;
+        $valid_database = false;
+        $database_key = file_get_contents('/api-keys/database.key');
+
+        $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
+
+        if(!mysqli_connect_errno()){
+            $valid_database = true;
+
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $sql = "SELECT user_password_hash FROM users WHERE user_email = ?;";
+
+            if($stmt = $mysqli_con->prepare($sql)){
+                $stmt->bind_param('s',$email);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->bind_result($password_hash);
+                
+                if($stmt->num_rows == 1){
+                    $stmt->fetch();
+                    if(password_verify($password,$password_hash)){
+                        $valid_login = true;
+                        $_SESSION['email'] = $email;
+                    }
+                }
+                $stmt->close();
+            } else {
+                $valid_database = false;
+            }
+        } else {
+            $valid_database = false;
+        }
+        $mysqli_con->close();
+    }
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Universal Community Developers is a community based non-profit organization. We are an alliance of concerned citizens geared towards giving back, paying it forward and creating change in one youth, one family and one community at a time, while fostering a universal development process and creating safe environments for all.">
+		<meta name="subject" content="Non-profit">
+		<meta name="author" content="Universal Community Developers">
+		<meta name="rating" content="General">
+        <meta name="url" content="https://www.universalcd.org/login.php">
+
+        <meta property="og:title" content="Universal Community Developers">
+		<meta property="og:description" content="Universal Community Developers is a community based non-profit organization. We are an alliance of concerned citizens geared towards giving back, paying it forward and creating change in one youth, one family and one community at a time, while fostering a universal development process and creating safe environments for all.">
+		<meta property="og:locale" content="en_US">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://www.universalcd.org/">
+		<meta property="og:image" content="https://www.universalcd.org/images/preview.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:height" content="409">
+		<meta property="og:image:width" content="793">
+
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@replaceits">
+		<meta name="twitter:creator" content="@replaceits">
+		<meta name="twitter:title" content="Universal Community Developers">
+		<meta name="twitter:description" content="Universal Community Developers is a community based non-profit organization. We are an alliance of concerned citizens geared towards giving back, paying it forward and creating change in one youth, one family and one community at a time, while fostering a universal development process and creating safe environments for all.">
+		<meta name="twitter:image" content="https://www.universalcd.org/images/preview.png">
+		<meta name="twitter:image:alt" content="Universal Community Developers">
+
+        <title>Universal Community Developers - Login</title>
+
+        <link rel="stylesheet" href="css/UniversalCD.org.css?v=0.2">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+    </head>
+    <body>
+        <div id="content-container">
+            <div class="content-page" id="Login">
+                <div class="content-wrapper no-background">
+                    <div class="content-header">
+                        <?php
+                            if($logging_in){
+                                if($valid_login){
+                                    echo("You have logged in!");
+                                } else {
+                                    echo("Invalid email and/or password!");
+                                }
+                            } else {
+                                echo("Log in");
+                            }
+                        ?>
+                    </div>
+                    <div class="content-content">
+                        <br>
+                        <div class="content-item center">
+                            <?php
+                                if(!$logging_in){
+                            ?>
+                                    <form class="form form-login" id="form-login" action="login.php" method="POST">
+                                        <input class="input-text input-email input-invalid" id="input-email" name="email" type="text" placeholder="email">
+                                        <input class="input-text input-password input-invalid" id="input-password" name="password" type="password" placeholder="Password">
+                                        <input class="button button-submit" id="button-submit" type="submit" value="Submit" disabled>
+                                        <script type="text/javascript">
+                                            var input_email = document.getElementById('input-email');
+                                            var input_password = document.getElementById('input-password');
+                                            var button_submit  = document.getElementById('button-submit' );
+
+                                            if(input_email.value.length > 0 && input_password.value.length > 0)
+                                            {
+                                                button_submit.disabled = false;
+                                            }
+
+                                            input_email.onchange = function(){
+                                                if(this.value.length === 0){
+                                                    button_submit.disabled = true;
+                                                    if ( !this.className.match(/(?:^|\s)input-invalid(?!\S)/) ){
+                                                        this.className += " input-invalid";
+                                                    }
+                                                } else {
+                                                    if ( this.className.match(/(?:^|\s)input-invalid(?!\S)/) ){
+                                                        this.className = this.className.replace( /(?:^|\s)input-invalid(?!\S)/g , '');
+                                                    }
+                                                    if(input_email.value.length > 0 && input_password.value.length > 0)
+                                                    {
+                                                        button_submit.disabled = false;
+                                                    } else {
+                                                        button_submit.disabled = true;
+                                                    } 
+                                                }
+                                            }; 
+                                            input_email.onkeypress = input_email.onchange;
+                                            input_email.onpaste = input_email.onchange;
+                                            input_email.oninput = input_email.onchange;
+
+                                            input_password.onchange = input_email.onchange;
+                                            input_password.onkeypress = input_password.onchange;
+                                            input_password.onpaste = input_password.onchange;
+                                            input_password.oninput = input_password.onchange;
+                                        </script>
+                                    </form>
+                            <?php
+                                } else {
+                            ?>
+                                    You will be automatically redirected in <div id="redirect-counter" class="counter">10</div> seconds.
+                                    <br>
+                                    Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "admin.php" : "login.php") );?>">click here</a> if you are not automatically redirected.
+                                    <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "/admin.php" : "/login.php")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
