@@ -61,6 +61,27 @@ GALLERY_TMP_TARGET  = $(shell echo $(GALLERY_PATH) | $(ESCAPE_SED))
 GALLERY_TMP_TARGET_PATH = $(shell echo $(GALLERY_TARGET_PATH) | $(ESCAPE_SED))
 GALLERY_TARGETS     = $(shell echo $(GALLERY_FILES) | sed 's/$(GALLERY_TMP_TARGET)/$(GALLERY_TMP_TARGET_PATH)/g')
 
+LOGIN_PATH        = ./login/
+LOGIN_FILES       = $(shell find $(LOGIN_PATH) -type f -name '*.*')
+LOGIN_TARGET_PATH = $(BUILD_PATH)login/
+LOGIN_TMP_TARGET  = $(shell echo $(LOGIN_PATH) | $(ESCAPE_SED))
+LOGIN_TMP_TARGET_PATH = $(shell echo $(LOGIN_TARGET_PATH) | $(ESCAPE_SED))
+LOGIN_TARGETS     = $(shell echo $(LOGIN_FILES) | sed 's/$(LOGIN_TMP_TARGET)/$(LOGIN_TMP_TARGET_PATH)/g')
+
+LOGOUT_PATH        = ./logout/
+LOGOUT_FILES       = $(shell find $(LOGOUT_PATH) -type f -name '*.*')
+LOGOUT_TARGET_PATH = $(BUILD_PATH)logout/
+LOGOUT_TMP_TARGET  = $(shell echo $(LOGOUT_PATH) | $(ESCAPE_SED))
+LOGOUT_TMP_TARGET_PATH = $(shell echo $(LOGOUT_TARGET_PATH) | $(ESCAPE_SED))
+LOGOUT_TARGETS     = $(shell echo $(LOGOUT_FILES) | sed 's/$(LOGOUT_TMP_TARGET)/$(LOGOUT_TMP_TARGET_PATH)/g')
+
+ADMIN_PATH        = ./admin/
+ADMIN_FILES       = $(shell find $(ADMIN_PATH) -type f -name '*.*')
+ADMIN_TARGET_PATH = $(BUILD_PATH)admin/
+ADMIN_TMP_TARGET  = $(shell echo $(ADMIN_PATH) | $(ESCAPE_SED))
+ADMIN_TMP_TARGET_PATH = $(shell echo $(ADMIN_TARGET_PATH) | $(ESCAPE_SED))
+ADMIN_TARGETS     = $(shell echo $(ADMIN_FILES) | sed 's/$(ADMIN_TMP_TARGET)/$(ADMIN_TMP_TARGET_PATH)/g')
+
 IMAGES_PATH        = ./images/
 IMAGES_FILES       = $(shell find $(IMAGES_PATH) -type f -name '*.*')
 IMAGES_TARGET_PATH = $(BUILD_PATH)images/
@@ -82,9 +103,9 @@ BUILD_PATH_ESCAPED = $(shell echo $(BUILD_PATH) | $(ESCAPE_SED))
 HTML_FILE_TARGET = $(shell echo $(HTML_FILE) | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
 MISC_FILES_TARGET = $(shell echo $(MISC_FILES) | sed 's/ /\n/g' | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
 
-DIRECTORIES     = $(BUILD_PATH) $(JS_TARGET_PATH) $(CSS_TARGET_PATH) $(ERRORS_TARGET_PATH) $(REVIEWS_TARGET_PATH) $(CONTACT_TARGET_PATH) $(ESTIMATE_TARGET_PATH) $(SERVICES_TARGET_PATH) $(GALLERY_TARGET_PATH) $(IMAGES_TARGET_PATH) $(FONTS_TARGET_PATH)
+DIRECTORIES     = $(BUILD_PATH) $(JS_TARGET_PATH) $(CSS_TARGET_PATH) $(ERRORS_TARGET_PATH) $(REVIEWS_TARGET_PATH) $(CONTACT_TARGET_PATH) $(ESTIMATE_TARGET_PATH) $(SERVICES_TARGET_PATH) $(GALLERY_TARGET_PATH) $(LOGIN_TARGET_PATH) $(LOGOUT_TARGET_PATH) $(ADMIN_TARGET_PATH) $(IMAGES_TARGET_PATH) $(FONTS_TARGET_PATH)
 
-all: | $(DIRECTORIES) css js errors reviews contact estimate services gallery html misc images fonts
+all: | $(DIRECTORIES) css js errors reviews contact estimate services gallery login logout admin html misc images fonts
 
 css: $(SCSS_FILES) | $(DIRECTORIES) $(CSS_TARGET) 
 
@@ -101,6 +122,12 @@ estimate: $(ESTIMATE_FILES) | $(DIRECTORIES) $(ESTIMATE_TARGETS)
 services: $(SERVICES_FILES) | $(DIRECTORIES) $(SERVICES_TARGETS)
 
 gallery: $(GALLERY_FILES) | $(DIRECTORIES) $(GALLERY_TARGETS)
+
+login: $(LOGIN_FILES) | $(DIRECTORIES) $(LOGIN_TARGETS)
+
+logout: $(LOGOUT_FILES) | $(DIRECTORIES) $(LOGOUT_TARGETS)
+
+admin: $(ADMIN_FILES) | $(DIRECTORIES) $(ADMIN_TARGETS)
 
 html: $(HTML_FILE) | $(DIRECTORIES) $(HTML_FILE_TARGET)
 
@@ -160,6 +187,21 @@ $(GALLERY_TARGETS): $(GALLERY_FILES)
 	@cp $(GALLERY_FILES) $(GALLERY_TARGET_PATH)
 	@echo -e "[ Done ]"
 
+$(LOGIN_TARGETS): $(LOGIN_FILES)
+	@echo -e "Copying Login files...\t\t\t\c"
+	@cp $(LOGIN_FILES) $(LOGIN_TARGET_PATH)
+	@echo -e "[ Done ]"
+
+$(LOGOUT_TARGETS): $(LOGOUT_FILES)
+	@echo -e "Copying Logout files...\t\t\t\c"
+	@cp $(LOGOUT_FILES) $(LOGOUT_TARGET_PATH)
+	@echo -e "[ Done ]"
+
+$(ADMIN_TARGETS): $(ADMIN_FILES)
+	@echo -e "Copying Admin files...\t\t\t\c"
+	@cp $(ADMIN_FILES) $(ADMIN_TARGET_PATH)
+	@echo -e "[ Done ]"
+
 $(CSS_TARGET): $(SCSS_FILES)
 	@echo -e "Compiling SCSS...\t\t\t\c"
 	@scss -C --sourcemap=none $(SCSS_MAIN) $(CSS_TARGET) -t compressed 
@@ -184,6 +226,9 @@ $(DIRECTORIES):
 	@mkdir -p $(ESTIMATE_TARGET_PATH)
 	@mkdir -p $(SERVICES_TARGET_PATH)
 	@mkdir -p $(GALLERY_TARGET_PATH)
+	@mkdir -p $(LOGIN_TARGET_PATH)
+	@mkdir -p $(LOGOUT_TARGET_PATH)
+	@mkdir -p $(ADMIN_TARGET_PATH)
 	@mkdir -p $(IMAGES_TARGET_PATH)
 	@mkdir -p $(FONTS_TARGET_PATH)
 	@mkdir -p $(JS_TARGET_PATH)
