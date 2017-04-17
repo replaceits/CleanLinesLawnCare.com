@@ -53,6 +53,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <base href="https://replaceits.com/CleanLinesLawnCare.com/build/CleanLinesLawnCare.com/">
 
@@ -95,23 +96,23 @@
                     ?>
                             <form class="form form-login" id="form-login" action="login/" method="POST">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 </span>
                                             <input class="form-control" id="input-email" name="email" type="text" placeholder="Email" aria-describedby="sizing-addon2">
                                         </div>
+                                        <br>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon" id="sizing-addon3"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 </span>
                                             <input class="form-control" id="input-password" name="password" type="password" placeholder="Password" aria-describedby="sizing-addon3">
                                         </div>
+                                        <br>
                                     </div>
                                 </div>
-
-                                <br><br>
                                 
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
@@ -128,10 +129,16 @@
                     <?php
                         } else {
                     ?>
-                            You will be automatically redirected in <div id="redirect-counter" class="counter">10</div> seconds.
-                            <br>
-                            Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "/admin/" : "/login/") );?>">click here</a> if you are not automatically redirected.
-                            <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "/admin/" : "/login/")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <p>
+                                        You will be automatically redirected in <span id="redirect-counter" class="counter">10</span> seconds.
+                                        <br>
+                                        Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "/admin/" : "/login/") );?>">click here</a> if you are not automatically redirected.
+                                        <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "/admin/" : "/login/")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
+                                    </p>
+                                </div>
+                            </div>
                     <?php
                         }
                     ?>

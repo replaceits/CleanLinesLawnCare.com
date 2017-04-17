@@ -183,7 +183,7 @@
                                         <section class="row">
                                             <div class="col-xs-12">
                                                 <blockquote>
-                                                    <p>
+                                                    <p style="word-wrap: break-word;overflow:hidden;">
                                                         <?php
                                                             //Remove redundant new lines
                                                             $review_content = str_replace("\r\n","<br>",htmlspecialchars($review_content));
@@ -317,13 +317,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
                                 <label for="LastName">Name</label>
                                 <input maxlength="255" type="text" class="form-control" id="Name" name="Name" placeholder="Name" required>
                             </div>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
                                 <label for="Rating">Rating</label>
                                 <input value="0" type="hidden" class="form-control" id="Rating" name="Rating" required>
