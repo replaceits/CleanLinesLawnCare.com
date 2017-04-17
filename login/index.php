@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    if(isset($_SESSION['email']) || !empty($_SESSION['email'])){
-        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "admin.php");
+    if(isset($_SESSION['email']) && !empty($_SESSION['email'])){
+        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/admin/");
         exit(0);
     }
 
@@ -49,46 +49,33 @@
     }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="description" content="Universal Community Developers is a community based non-profit organization. We are an alliance of concerned citizens geared towards giving back, paying it forward and creating change in one youth, one family and one community at a time, while fostering a universal development process and creating safe environments for all.">
-		<meta name="subject" content="Non-profit">
-		<meta name="author" content="Universal Community Developers">
-		<meta name="rating" content="General">
-        <meta name="url" content="https://www.universalcd.org/login.php">
 
-        <meta property="og:title" content="Universal Community Developers">
-		<meta property="og:description" content="Universal Community Developers is a community based non-profit organization. We are an alliance of concerned citizens geared towards giving back, paying it forward and creating change in one youth, one family and one community at a time, while fostering a universal development process and creating safe environments for all.">
-		<meta property="og:locale" content="en_US">
-		<meta property="og:type" content="website">
-		<meta property="og:url" content="https://www.universalcd.org/">
-		<meta property="og:image" content="https://www.universalcd.org/images/preview.png">
-		<meta property="og:image:type" content="image/png">
-		<meta property="og:image:height" content="409">
-		<meta property="og:image:width" content="793">
+        <base href="https://replaceits.com/CleanLinesLawnCare.com/build/CleanLinesLawnCare.com/">
 
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content="@replaceits">
-		<meta name="twitter:creator" content="@replaceits">
-		<meta name="twitter:title" content="Universal Community Developers">
-		<meta name="twitter:description" content="Universal Community Developers is a community based non-profit organization. We are an alliance of concerned citizens geared towards giving back, paying it forward and creating change in one youth, one family and one community at a time, while fostering a universal development process and creating safe environments for all.">
-		<meta name="twitter:image" content="https://www.universalcd.org/images/preview.png">
-		<meta name="twitter:image:alt" content="Universal Community Developers">
+        <title>Clean Lines Lawn Care - Reviews</title>
 
-        <title>Universal Community Developers - Login</title>
+        <link rel="stylesheet" href="css/CleanLinesLawnCare.com.css?v=1">
 
-        <link rel="stylesheet" href="css/UniversalCD.org.css?v=0.2">
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1">
+        <link rel="icon" type="image/png" href="favicon-32x32.png?v=12" sizes="32x32">
+        <link rel="icon" type="image/png" href="favicon-16x16.png?v=12" sizes="16x16">
+        <link rel="manifest" href="manifest.json">
+        <link rel="mask-icon" href="safari-pinned-tab.svg?v=1" color="#169113">
+        <meta name="theme-color" content="#ffffff">
 
-        <link rel="shortcut icon" href="favicon.ico">
+        <script defer type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script defer type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script async defer src='https://www.google.com/recaptcha/api.js'></script>
     </head>
-    <body>
-        <div id="content-container">
-            <div class="content-page" id="Login">
-                <div class="content-wrapper no-background">
-                    <div class="content-header">
+    <body style="background-image: url(images/covergrass.jpeg);background-size: cover;background-color: #57975e;">
+        <main class="container">
+            <div class="panel panel-default" id="Login">
+                <header class="panel-heading">
+                    <h3 class="panel-title">
                         <?php
                             if($logging_in){
                                 if($valid_login){
@@ -100,69 +87,56 @@
                                 echo("Log in");
                             }
                         ?>
-                    </div>
-                    <div class="content-content">
-                        <br>
-                        <div class="content-item center">
-                            <?php
-                                if(!$logging_in){
-                            ?>
-                                    <form class="form form-login" id="form-login" action="login.php" method="POST">
-                                        <input class="input-text input-email input-invalid" id="input-email" name="email" type="text" placeholder="email">
-                                        <input class="input-text input-password input-invalid" id="input-password" name="password" type="password" placeholder="Password">
-                                        <input class="button button-submit" id="button-submit" type="submit" value="Submit" disabled>
-                                        <script type="text/javascript">
-                                            var input_email = document.getElementById('input-email');
-                                            var input_password = document.getElementById('input-password');
-                                            var button_submit  = document.getElementById('button-submit' );
+                    </h3>
+                </header>
+                <section class="panel-body">
+                    <?php
+                        if(!$logging_in){
+                    ?>
+                            <form class="form form-login" id="form-login" action="login/" method="POST">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+</span>
+                                            <input class="form-control" id="input-email" name="email" type="text" placeholder="Email" aria-describedby="sizing-addon2">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="sizing-addon3"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+</span>
+                                            <input class="form-control" id="input-password" name="password" type="password" placeholder="Password" aria-describedby="sizing-addon3">
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            if(input_email.value.length > 0 && input_password.value.length > 0)
-                                            {
-                                                button_submit.disabled = false;
-                                            }
+                                <br><br>
+                                
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <input class="btn btn-primary button button-submit" id="button-submit" type="submit" value="Submit">
+                                    </div>
+                                </div>
 
-                                            input_email.onchange = function(){
-                                                if(this.value.length === 0){
-                                                    button_submit.disabled = true;
-                                                    if ( !this.className.match(/(?:^|\s)input-invalid(?!\S)/) ){
-                                                        this.className += " input-invalid";
-                                                    }
-                                                } else {
-                                                    if ( this.className.match(/(?:^|\s)input-invalid(?!\S)/) ){
-                                                        this.className = this.className.replace( /(?:^|\s)input-invalid(?!\S)/g , '');
-                                                    }
-                                                    if(input_email.value.length > 0 && input_password.value.length > 0)
-                                                    {
-                                                        button_submit.disabled = false;
-                                                    } else {
-                                                        button_submit.disabled = true;
-                                                    } 
-                                                }
-                                            }; 
-                                            input_email.onkeypress = input_email.onchange;
-                                            input_email.onpaste = input_email.onchange;
-                                            input_email.oninput = input_email.onchange;
-
-                                            input_password.onchange = input_email.onchange;
-                                            input_password.onkeypress = input_password.onchange;
-                                            input_password.onpaste = input_password.onchange;
-                                            input_password.oninput = input_password.onchange;
-                                        </script>
-                                    </form>
-                            <?php
-                                } else {
-                            ?>
-                                    You will be automatically redirected in <div id="redirect-counter" class="counter">10</div> seconds.
-                                    <br>
-                                    Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "admin.php" : "login.php") );?>">click here</a> if you are not automatically redirected.
-                                    <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "/admin.php" : "/login.php")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
-                            <?php
-                                }
-                            ?>
-                        </div>
-                    </div>
-                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div id='recaptcha' class="g-recaptcha" data-sitekey="6Le-hxgUAAAAAGu_SqKn29-j4SCIivLanTOLR-tZ" data-callback="captchaSubmit" data-size="invisible"></div>
+                                    </div>
+                                </div>
+                            </form>
+                    <?php
+                        } else {
+                    ?>
+                            You will be automatically redirected in <div id="redirect-counter" class="counter">10</div> seconds.
+                            <br>
+                            Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "/admin/" : "/login/") );?>">click here</a> if you are not automatically redirected.
+                            <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "/admin/" : "/login/")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
+                    <?php
+                        }
+                    ?>
+                </section>
             </div>
-        </div>
+        </main>
     </body>
 </html>
