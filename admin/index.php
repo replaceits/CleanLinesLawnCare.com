@@ -2,7 +2,7 @@
     session_start();
 
     if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
-        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/");
+        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/login/");
         exit(0);
     }
     $database_key = file_get_contents('/api-keys/database.key');
@@ -60,11 +60,10 @@
 
                             <div class="row">
                                 <div class="col-md-6 col-xs-12 text-center" style="margin-bottom: 10px;">
-                                    <button class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>&nbsp;Upload</button>
-                                    <input name="upload" type="file" id="fileinput">
+                                    <button id="gallery-upload" class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>&nbsp;Upload</button>
                                 </div>
                                 <div class="col-md-6 col-xs-12 text-center" style="margin-bottom: 10px;">
-                                    <button class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Modify</button>
+                                    <button id="gallery-modify" class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Modify</button>
                                 </div>
                             </div>
 
@@ -96,10 +95,10 @@
 
                             <div class="row">
                                 <div class="col-md-6 col-xs-12 text-center" style="margin-bottom: 10px;">
-                                    <button class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;Add Review</button>
+                                    <button id="review-add" class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;Add Review</button>
                                 </div>
                                 <div class="col-md-6 col-xs-12 text-center" style="margin-bottom: 10px;">
-                                    <button class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Modify</button>
+                                    <button id="review-modify" class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Modify</button>
                                 </div>
                             </div>
 
@@ -198,7 +197,268 @@
 
                 </div>
             </section>
+
+            <!-- Modals -->
+            <form id="upload-form">
+                <input id="gallerypicture" name="gallerypicture" type="file" id="fileinput" accept="image/*" style="width: 0px;height: 0px;overflow: hidden;">
+                <div id="uploadModal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document" style="min-width:0px;width:auto;display: table;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <img id="modal-image" class="img-responsive" style="margin: auto;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success submit-button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="review-form">
+                <div id="reviewModal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Add Review</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="alert alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="LastName">Name</label>
+                                                    <input maxlength="255" type="text" class="form-control" id="Name" name="Name" placeholder="Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="Rating">Rating</label>
+                                                    <input value="0" type="hidden" class="form-control" id="Rating" name="Rating" required>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 text-center" style="font-size: 2.5rem;">
+                                                            <span class="glyphicon glyphicon-star-empty star-rating" aria-hidden="true"></span>
+                                                            <span class="glyphicon glyphicon-star-empty star-rating" aria-hidden="true"></span>
+                                                            <span class="glyphicon glyphicon-star-empty star-rating" aria-hidden="true"></span>
+                                                            <span class="glyphicon glyphicon-star-empty star-rating" aria-hidden="true"></span>
+                                                            <span class="glyphicon glyphicon-star-empty star-rating" aria-hidden="true"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="Review">Write your review</label>
+                                                    <textarea id="Review" name="Review" class="form-control" rows="6" placeholder="Write your review" maxlength="5000"></textarea>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span id="textareaLen">0</span>/5000
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success submit-button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
         </main>
+        <script>
+            //gallerypicture
+            window.addEventListener('DOMContentLoaded', function() {
+                $('#reviewModal .alert').hide();
+
+                $('#gallery-upload').click(function(){
+                    $('#gallerypicture').focus().trigger('click');
+                });
+
+                $('#gallerypicture').change(function(){
+                    $('#uploadModal .modal-title').text($(this).val().split('\\').pop());
+
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#uploadModal #modal-image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+
+                    $('#reviewModal').modal('hide')
+                    $('#uploadModal').modal('show');
+                });
+
+                $('#review-add').click(function(){
+                    $('#reviewModal .alert').hide();
+                    $('#Name').val("").parent().removeClass('has-error').removeClass('has-success');
+                    $('.star-rating').css('color','#333').removeClass('glyphicon-star-empty').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                    $('#Rating').val(0);
+                    $('textarea').val("").parent().removeClass('has-error').removeClass('has-success');
+
+                    $('#uploadModal').modal('hide')
+                    $('#reviewModal').modal('show'); 
+                });
+
+                $('#uploadModal .submit-button').click(function(){
+                    let fd = new FormData();    
+                    fd.append( 'gallerypicture', $('#gallerypicture').get(0).files[0] );
+                    
+                    $.ajax({
+                        method: 'POST',
+                        url: 'galleryupload.php',
+                        cache: false,
+                        data: fd,
+                        processData: false,
+                        type: 'POST',
+                        contentType: false
+
+                    }).done( function( msg ){
+                        
+                    }).fail( function( jqXHR, textStatus ){
+                        
+                    });
+                });
+
+                $('#reviewModal .submit-button').click(function(){
+                    $('#reviewModal .alert').hide();
+
+                    let valid = true;
+                    let invalidElement = null;
+
+                    $('#Name').each( function(){
+                        if( $(this).val().length <= 0 ){
+                            valid = false;
+                            if (invalidElement == null) {
+                                invalidElement = $(this);
+                                $(window).delay(1000).scrollTop($(this).offset().top - 80);
+                            }
+                            $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                        } else {
+                            $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                        }
+                    });
+                    $('#Rating').each( function(){
+                        if( $(this).val() == 0 ){
+                            valid = false;
+                            if (invalidElement == null) {
+                                invalidElement = $(this);
+                                $(window).delay(1000).scrollTop($('#Name').offset().top - 80);
+                            }
+                            $('.star-rating').css('color','#a94442');
+                        } else {
+                            $('.star-rating').css('color','#3c763d');
+                        }
+                    });
+                    if($('textarea').val().length <= 0){
+                        valid = false;
+                        $('textarea').parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                    } else {
+                        $('textarea').parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                    }
+
+                    invalidElement = null;
+
+                    if (valid) {
+                        $.ajax({
+                            method: 'POST',
+                            url: 'review.php',
+                            cache: false,
+                            data: $('#review-form').serialize()
+                        }).done( function( msg ){
+                            $('#Name').val("").parent().removeClass('has-error').removeClass('has-success');
+                            $('.star-rating').css('color','#333').removeClass('glyphicon-star-empty').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                            $('#Rating').val(0);
+                            $('textarea').val("").parent().removeClass('has-error').removeClass('has-success');
+                            let dismissButton = $('#reviewModal .alert').find('button');
+                            $('#reviewModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-success').text('Your review has been left!').append(dismissButton).show();
+                        }).fail( function( jqXHR, textStatus ){
+                            let dismissButton = $('#reviewModal .alert').find('button');
+                            $('#reviewModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-danger').text('We\'re sorry but something wen\'t wrong :( Please try again later.').append(dismissButton).show();
+                        });
+                    } else {
+                        let dismissButton = $('#reviewModal .alert').find('button');
+                        $('#reviewModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-danger').text('You must fill in all of the required fields.').append(dismissButton).show();
+                    }
+                });
+
+                $('.star-rating').hover(function(){
+                    if(!$(this).hasClass('star-checked')){
+                        $(this).removeClass('glyphicon-star-empty').removeClass('glyphicon-star').addClass('glyphicon-star');
+                    }
+                    $(this).prevAll().each(function(){
+                        if(!$(this).hasClass('star-checked')){
+                            $(this).removeClass('glyphicon-star-empty').removeClass('glyphicon-star').addClass('glyphicon-star');
+                        }
+                    });
+                    $(this).nextAll().removeClass('glyphicon-star-empty').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                }, function(){
+                    if(!$(this).hasClass('star-checked')){
+                        $(this).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                    }
+                    $(this).prevAll().each(function(){
+                        if(!$(this).hasClass('star-checked')){
+                            $(this).removeClass('glyphicon-star').removeClass('glyphicon-star-empty').addClass('glyphicon-star-empty');
+                        } else {
+                            $(this).removeClass('glyphicon-star').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+                        }
+                    });
+                    $(this).nextAll().each(function(){
+                        if(!$(this).hasClass('star-checked')){
+                            $(this).removeClass('glyphicon-star').removeClass('glyphicon-star-empty').addClass('glyphicon-star-empty');
+                        } else {
+                            $(this).removeClass('glyphicon-star').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+                        }
+                    });
+                }).click(function(){
+                    $('.star-rating').css('color','#3c763d');
+                    $(this).removeClass('glyphicon-star-empty').removeClass('glyphicon-star').removeClass('star-checked').addClass('glyphicon-star').addClass('star-checked').prevAll().removeClass('glyphicon-star').removeClass('glyphicon-star-empty').removeClass('glyphicon-star').addClass('glyphicon-star').addClass('star-checked');
+                    $(this).nextAll().removeClass('glyphicon-star-empty').removeClass('glyphicon-star').removeClass('star-checked').addClass('glyphicon-star-empty');
+
+                    $('#Rating').val(($(this).prevAll().length+1));
+                });
+
+                $('input:required').on("change paste keyup", function(){
+                    if($(this).val().length > 0 && $(this).val().length < 255){
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                    } else {
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                    }
+                });
+                
+                $('textarea').on("change paste keyup", function(){
+                    $("#textareaLen").text($(this).val().length);
+                    if($(this).val().length > 0 && $(this).val().length <= 5000){
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-success');
+                    } else {
+                        $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
 <?php

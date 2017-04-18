@@ -1,48 +1,67 @@
 <?php
-    if( !isset($_POST['Name']) || !isset($_POST['Rating']) || !isset($_POST['Review']) || !isset($_POST['g-recaptcha-response'])  ||
-         empty($_POST['Name']) ||  empty($_POST['Rating']) ||  empty($_POST['Review']) ||  empty($_POST['g-recaptcha-response'])  ||
-        !is_numeric($_POST['Rating']) || floor(intval($_POST['Review'])) < 0 || floor(intval($_POST['Review'])) > 5 || strlen($_POST['Review']) > 5000 || strlen($_POST['Name']) > 255 ){
+    session_start();
 
-        http_response_code(400);
-        echo("Invalid request");
-        exit(0);
+    $isAdmin = false;
+
+    if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
+        if( !isset($_POST['Name']) || !isset($_POST['Rating']) || !isset($_POST['Review']) || !isset($_POST['g-recaptcha-response'])  ||
+             empty($_POST['Name']) ||  empty($_POST['Rating']) ||  empty($_POST['Review']) ||  empty($_POST['g-recaptcha-response'])  ||
+            !is_numeric($_POST['Rating']) || floor(intval($_POST['Review'])) < 0 || floor(intval($_POST['Review'])) > 5 || strlen($_POST['Review']) > 5000 || strlen($_POST['Name']) > 255 ){
+
+            http_response_code(400);
+            echo("Invalid request");
+            exit(0);
+        }
+    } else {
+        $isAdmin = true;
+        if( !isset($_POST['Name']) || !isset($_POST['Rating']) || !isset($_POST['Review']) ||
+             empty($_POST['Name']) ||  empty($_POST['Rating']) ||  empty($_POST['Review']) ||
+            !is_numeric($_POST['Rating'])        || floor(intval($_POST['Review'])) < 0 || 
+             floor(intval($_POST['Review'])) > 5 || strlen($_POST['Review']) > 5000     || strlen($_POST['Name']) > 255 ){
+
+            http_response_code(400);
+            echo("Invalid request");
+            exit(0);
+        }
     }
 
     $Name   = trim( $_POST['Name'  ]);
     $Rating = floor($_POST['Rating']);
     $Review = trim( $_POST['Review']);
 
-    $api_key = file_get_contents('/api-keys/invisiblerecaptcha.key');
+    if(!$isAdmin){
+        $api_key = file_get_contents('/api-keys/invisiblerecaptcha.key');
 
-    // Verify Captcha
-    try {
-        $url = 'https://www.google.com/recaptcha/api/siteverify';
-        $data = [ 
-            'secret'   => $api_key,
-            'response' => $_POST['g-recaptcha-response'],
-            'remoteip' => $_SERVER['REMOTE_ADDR']
-        ];
+        // Verify Captcha
+        try {
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $data = [ 
+                'secret'   => $api_key,
+                'response' => $_POST['g-recaptcha-response'],
+                'remoteip' => $_SERVER['REMOTE_ADDR']
+            ];
 
-        $options = [
-            'http' => [
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data) 
-            ]
-        ];
+            $options = [
+                'http' => [
+                    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method'  => 'POST',
+                    'content' => http_build_query($data) 
+                ]
+            ];
 
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context); 
-        $valid_captcha = json_decode($result)->success;
-    }
-    catch (Exception $e) {
-        $valid_captcha = false;
-    }
+            $context = stream_context_create($options);
+            $result = file_get_contents($url, false, $context); 
+            $valid_captcha = json_decode($result)->success;
+        }
+        catch (Exception $e) {
+            $valid_captcha = false;
+        }
 
-    if (!$valid_captcha) {
-        http_response_code(400);
-        echo("Invalid captcha");
-        exit(0);
+        if (!$valid_captcha) {
+            http_response_code(400);
+            echo("Invalid captcha");
+            exit(0);
+        }
     }
 
     function contains($str, array $arr)
@@ -356,7 +375,7 @@
         "xxx"
     );
 
-    if(!contains($Review, $CensoredWords) && !contains($Name, $CensoredWords)){
+    if($isAdmin || !contains($Review, $CensoredWords) && !contains($Name, $CensoredWords)){
         // Store the review in the database
         $database_key = file_get_contents('/api-keys/database.key');
         $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
@@ -384,21 +403,23 @@
             exit(0);
         }
 
-        $message  = "Name: "   . $Name   . "\n";
-        $message .= "Rating: " . $Rating . "\n";
-        $message .= "Review: " . $Review . "\n";
+        if(!$isAdmin){
+            $message  = "Name: "   . $Name   . "\n";
+            $message .= "Rating: " . $Rating . "\n";
+            $message .= "Review: " . $Review . "\n";
 
-        // Send the review to email
-        mail("sidwil0790@students.ecpi.edu", 
-            "New Review - " . $Name, 
-            $message, 
-            'From: contact@cleanlineslawncare.com' . "\r\n" .
-                "Reply-To: donotreply@cleanlineslawncare.com\r\n" .
-                'MIME-Version: 1.0' . "\r\n" .
-                'Content-Type: text/plain; charset=utf-8' . "\r\n" .
-                'X-Priority: 1' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion() . "\r\n"
-        );
+            // Send the review to email
+            mail("sidwil0790@students.ecpi.edu", 
+                "New Review - " . $Name, 
+                $message, 
+                'From: contact@cleanlineslawncare.com' . "\r\n" .
+                    "Reply-To: donotreply@cleanlineslawncare.com\r\n" .
+                    'MIME-Version: 1.0' . "\r\n" .
+                    'Content-Type: text/plain; charset=utf-8' . "\r\n" .
+                    'X-Priority: 1' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion() . "\r\n"
+            );
+        }
     }
 
     http_response_code(200);
