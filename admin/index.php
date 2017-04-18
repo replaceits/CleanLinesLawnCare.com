@@ -7,6 +7,7 @@
     }
     $database_key = file_get_contents('/api-keys/database.key');
     $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
+    $images = glob(__DIR__ . "/../gallery/*.{jpg,jpeg,gif,png}", GLOB_BRACE);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +51,7 @@
                     </div>
 
                     <div class="row">
-                        <section class="col-md-6 col-sm-6 col-xs-12" style="border-right: 1px solid #eee">
+                        <section class="col-md-6 col-sm-6 col-xs-12">
                             <div class="row">
                                 <header class="col-xs-12 text-center">
                                     <h3>Gallery</h3>
@@ -60,9 +61,21 @@
                             <div class="row">
                                 <div class="col-md-6 col-xs-12 text-center" style="margin-bottom: 10px;">
                                     <button class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>&nbsp;Upload</button>
+                                    <input name="upload" type="file" id="fileinput">
                                 </div>
                                 <div class="col-md-6 col-xs-12 text-center" style="margin-bottom: 10px;">
                                     <button class="btn btn-default" style="min-width: 75%;"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Modify</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <ul class="list-group" style="max-width: 75%;margin:auto;">
+                                        <li class="list-group-item">
+                                            <span class="badge"><?php echo(count($images)); ?></span>
+                                            Total Pictures
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </section>
@@ -74,7 +87,7 @@
                             </div>
                         </div>
 
-                        <section class="col-md-6 col-sm-6 col-xs-12">
+                        <section class="col-md-6 col-sm-6 col-xs-12" style="border-left: 1px solid #eee">
                             <div class="row">
                                 <header class="col-xs-12 text-center">
                                     <h3>Reviews</h3>
@@ -158,6 +171,18 @@
                                 </div>
                             </div>
                         </section>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <a href="logout" class="btn btn-default"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a>
+                        </div>
                     </div>
                 </div>
             </section>
