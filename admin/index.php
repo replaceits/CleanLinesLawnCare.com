@@ -7,7 +7,6 @@
     }
     $database_key = file_get_contents('/api-keys/database.key');
     $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
-    $images = glob(__DIR__ . "/../gallery/*.{jpg,jpeg,gif,png}", GLOB_BRACE);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,8 +70,45 @@
                                 <div class="col-xs-12">
                                     <ul class="list-group" style="max-width: 75%;margin:auto;">
                                         <li class="list-group-item">
-                                            <span class="badge"><?php echo(count($images)); ?></span>
+                                            <span class="badge"><?php 
+                                                if(!mysqli_connect_errno()){
+                                                    $sql = "SELECT COUNT(*) FROM gallery_pictures";
+                                            
+                                                    if($stmt = $mysqli_con->prepare($sql)){
+                                                        $stmt->execute();
+                                                        $stmt->store_result();
+                                                        $stmt->bind_result($gallery_count);
+
+                                                        if($stmt->num_rows === 1){
+                                                            while( $stmt->fetch()){
+                                                                echo($gallery_count);
+                                                            }
+                                                        }
+                                                        $stmt->close();
+                                                    }
+                                                }
+                                            ?></span>
                                             Total Pictures
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="badge"><?php
+                                                if(!mysqli_connect_errno()){
+                                                    $sql = "SELECT gallery_picture_date FROM gallery_pictures ORDER BY gallery_picture_date DESC LIMIT 1";
+                                                    if($stmt = $mysqli_con->prepare($sql)){
+                                                        $stmt->execute();
+                                                        $stmt->store_result();
+                                                        $stmt->bind_result($gallery_picture_date);
+
+                                                        if($stmt->num_rows === 1){
+                                                            while( $stmt->fetch()){
+                                                                echo($gallery_picture_date);
+                                                            }
+                                                        }
+                                                        $stmt->close();
+                                                    }
+                                                }
+                                            ?></span>
+                                            Last Upload
                                         </li>
                                     </ul>
                                 </div>
@@ -186,18 +222,6 @@
                 </div>
             </section>
 
-            <section class="row gallery-section admin-panel hidden">
-                <div class="col-xs-12">
-
-                </div>
-            </section>
-
-            <section class="row review-section admin-panel hidden">
-                <div class="col-xs-12">
-
-                </div>
-            </section>
-
             <!-- Modals -->
             <form id="upload-form">
                 <input id="gallerypicture" name="gallerypicture" type="file" id="fileinput" accept="image/*" style="width: 0px;height: 0px;overflow: hidden;">
@@ -211,6 +235,13 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-xs-12">
+                                        <div class="alert alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
                                         <img id="modal-image" class="img-responsive" style="margin: auto;">
                                     </div>
                                 </div>
@@ -218,6 +249,75 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-success submit-button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="modify-gallery-form">
+                <div id="modifyGalleryModal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Gallery</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="alert alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                        <?php
+                                    if(!mysqli_connect_errno()){
+                                        $sql = "SELECT gallery_picture_id, gallery_picture_order, gallery_picture_location FROM gallery_pictures ORDER BY gallery_picture_order";
+                                        if($stmt = $mysqli_con->prepare($sql)){
+                                            $stmt->execute();
+                                            $stmt->store_result();
+                                            $stmt->bind_result($gallery_picture_id, $gallery_picture_order, $gallery_picture_location);
+
+                                            while( $stmt->fetch()){
+                        ?>
+                                                <div class="col-md-3 col-sm-4 col-xs-6 gallery-picture-column">
+                                                    <div class="thumbnail" style="overflow: hidden;">
+                                                        <div class="gallery-image" imageLocation="gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>" style="background: url(gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>) no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
+                                                        </div>
+                                                        <div class="caption">
+                                                            <input class="input-order"  type="hidden" name="order_<?php echo($gallery_picture_id); ?>" value="<?php echo($gallery_picture_order); ?>">
+                                                            <input class="input-delete" type="hidden" name="delete_<?php echo($gallery_picture_id); ?>" value="0">
+
+                                                            <div class="btn-group btn-group-justified" role="group" aria-label="Modify options">
+                                                                <div class="btn-group" role="group">
+                                                                    <button type="button" class="btn btn-default move-left"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+</button>
+                                                                </div>
+                                                                <div class="btn-group" role="group">
+                                                                    <button type="button" class="btn btn-default delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+</button>
+                                                                </div>
+                                                                <div class="btn-group" role="group">
+                                                                    <button type="button" class="btn btn-default move-right"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        <?php
+                                            }
+                                            $stmt->close();
+                                        }
+                                    }
+                        ?>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="gallery-cancel" type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success submit-button">Save Changes</button>
                             </div>
                         </div>
                     </div>
@@ -289,17 +389,97 @@
                 </div>
             </form>
 
+            <div id="backup-gallery" class="hidden"></div>
+
         </main>
         <script>
-            //gallerypicture
             window.addEventListener('DOMContentLoaded', function() {
                 $('#reviewModal .alert').hide();
+                $('#uploadModal .alert').hide();
+                $('#modifyGalleryModal .alert').hide();
+
+                $('.alert').on('close.bs.alert',function(){
+                    $(this).clone(true,false).appendTo($(this).parent());
+                    $(this).parent().find('.alert').hide();
+                });
+
+                $('#gallery-modify').click(function(){
+                    $('#modifyGalleryModal .alert').hide();
+                    $('#reviewModal').modal('hide');
+                    $('#uploadModal').modal('hide');
+                    $('#modifyGalleryModal').modal('show');
+                });
+
+                $('#gallery-cancel').click(function(){
+                    $('#modifyGalleryModal .modal-body').remove();
+                    $('#modifyGalleryModal .gallery-picture-column').remove();
+                    $('#backup-gallery').clone(true,true).children().insertAfter('#modifyGalleryModal .modal-header');
+                });
+
+                $('#modifyGalleryModal .gallery-picture-column .delete').click(function(){
+                    $(this).parent().parent().parent().find('.input-order').val('0');
+                    $(this).parent().parent().parent().find('.input-delete').val('1');
+                    $(this).parent().parent().parent().parent().parent().nextAll().each(function(){
+                        $(this).find('.input-order').val(
+                            parseInt($(this).find('.input-order').val())-1
+                        );
+                    });
+                    $(this).parent().parent().parent().parent().parent().parent().parent().before(
+                        $(this).parent().parent().parent().parent().parent()
+                    );
+                    $(this).parent().parent().parent().parent().parent().hide();
+                });
+
+                $('#modifyGalleryModal .gallery-picture-column .move-left').click(function(){
+                    if($(this).parent().parent().parent().find('.input-order').val() != '1'){
+                        $(this).parent().parent().parent().find('.input-order').val(
+                            parseInt($(this).parent().parent().parent().find('.input-order').val())-1
+                        );
+                        $(this).parent().parent().parent().parent().parent().prev().find('.input-order').val(
+                            parseInt($(this).parent().parent().parent().parent().parent().prev().find('.input-order').val())+1
+                        );
+                    }
+                    $(this).parent().parent().parent().parent().parent().prev().before(
+                        $(this).parent().parent().parent().parent().parent()
+                    );
+                });
+
+                $('#modifyGalleryModal .gallery-picture-column .move-right').click(function(){
+                    if(!$(this).parent().parent().parent().parent().parent().is(':last-child')){
+                        $(this).parent().parent().parent().find('.input-order').val(
+                            parseInt($(this).parent().parent().parent().find('.input-order').val())+1
+                        );
+                        $(this).parent().parent().parent().parent().parent().next().find('.input-order').val(
+                            parseInt($(this).parent().parent().parent().parent().parent().next().find('.input-order').val())-1
+                        );
+                    }
+                    $(this).parent().parent().parent().parent().parent().next().after(
+                        $(this).parent().parent().parent().parent().parent()
+                    );
+                });
+
+                $('#modifyGalleryModal .submit-button').click(function(){
+                    $.ajax({
+                        method: 'POST',
+                        url: 'modifygallery.php',
+                        cache: false,
+                        data: $('#modify-gallery-form').serialize()
+                    }).done( function( msg ){
+                        let dismissButton = $('#modifyGalleryModal .alert').find('button');
+                        $('#modifyGalleryModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-success').text('Your changes have been saved!').append(dismissButton).show();
+                    }).fail( function( jqXHR, textStatus ){
+                        let dismissButton = $('#modifyGalleryModal .alert').find('button');
+                        $('#modifyGalleryModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-danger').text('We\'re sorry but something wen\'t wrong :( Please try again later.').append(dismissButton).show();
+                    });
+                });
 
                 $('#gallery-upload').click(function(){
                     $('#gallerypicture').focus().trigger('click');
                 });
 
                 $('#gallerypicture').change(function(){
+                    $('#uploadModal .alert').hide();
+                    $('#uploadModal .submit-button').show();
                     $('#uploadModal .modal-title').text($(this).val().split('\\').pop());
 
                     let reader = new FileReader();
@@ -308,7 +488,7 @@
                     }
                     reader.readAsDataURL(this.files[0]);
 
-                    $('#reviewModal').modal('hide')
+                    $('#reviewModal').modal('hide');
                     $('#uploadModal').modal('show');
                 });
 
@@ -319,14 +499,14 @@
                     $('#Rating').val(0);
                     $('textarea').val("").parent().removeClass('has-error').removeClass('has-success');
 
-                    $('#uploadModal').modal('hide')
+                    $('#uploadModal').modal('hide');
                     $('#reviewModal').modal('show'); 
                 });
 
                 $('#uploadModal .submit-button').click(function(){
                     let fd = new FormData();    
                     fd.append( 'gallerypicture', $('#gallerypicture').get(0).files[0] );
-                    
+
                     $.ajax({
                         method: 'POST',
                         url: 'galleryupload.php',
@@ -337,9 +517,15 @@
                         contentType: false
 
                     }).done( function( msg ){
-                        
+                        $('#upload-form')[0].reset();
+                        $('#uploadModal #modal-image').attr('src', '');
+                        $('#uploadModal').modal('hide');
                     }).fail( function( jqXHR, textStatus ){
-                        
+                        $('#upload-form')[0].reset();
+                        $('#uploadModal #modal-image').attr('src', '');
+                        let dismissButton = $('#uploadModal .alert').find('button');
+                        $('#uploadModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-danger').text('Your image couldn\'t be uploaded :(').append(dismissButton).show();
+                        $('#uploadModal .submit-button').hide();
                     });
                 });
 
@@ -457,6 +643,8 @@
                         $(this).parent().removeClass('has-error').removeClass('has-success').addClass('has-error');
                     }
                 });
+
+                $('#modifyGalleryModal .modal-body').clone(true,true).appendTo('#backup-gallery');
             });
         </script>
     </body>

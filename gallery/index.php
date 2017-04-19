@@ -159,34 +159,30 @@
                     <section>
                         <div class="row">
                         <?php
-                            $images = glob(__DIR__ . "/*.{jpg,jpeg,gif,png}", GLOB_BRACE);
-                            $counter = 4;
-                            $firstPass = true;
-                            foreach($images as $image)
-                            {
-                                if($counter === 4){
-                                    if(!$firstPass){
+                            $database_key = file_get_contents('/api-keys/database.key');
+                            $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
+                            if(!mysqli_connect_errno()){
+                                $sql = "SELECT gallery_picture_location FROM gallery_pictures ORDER BY gallery_picture_order";
+                                if($stmt = $mysqli_con->prepare($sql)){
+                                    $stmt->execute();
+                                    $stmt->store_result();
+                                    $stmt->bind_result($gallery_picture_location);
+
+                                    while( $stmt->fetch()){
                         ?>
-                                        <!--</div>-->
+                                        <div class="col-md-3 col-sm-4 col-xs-6">
+                                            <div class="thumbnail" style="max-height: 154px;overflow: hidden;">
+                                                <div class="gallery-image" imageLocation="gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>" style="background: url(gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>) no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
+                                                </div>
+                                            </div>
+                                        </div>
                         <?php
                                     }
-                                    $counter = 0;
-                        ?>
-                                    <!--<div class="row">-->
-                        <?php
-                                    $firstPass = false;
+                                    $stmt->close();
                                 }
-                        ?>
-                                <div class="col-md-3 col-sm-4 col-xs-6">
-                                    <div class="thumbnail" style="max-height: 154px;overflow: hidden;">
-                                        <div class="gallery-image" imageLocation="<?php echo("gallery/" . basename($image)); ?>" style="background: url(<?php echo("gallery/" . basename($image)); ?>) no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
-                                        </div>
-                                    </div>
-                                </div>
-                        <?php
-                                $counter++;
                             }
                         ?>
+                        </div>
                     </section>
                 </section>
                 <!-- End main content -->

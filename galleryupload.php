@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if(
+    if(!isset($_SESSION['email'])        || empty($_SESSION['email']) ||
        !isset($_FILES['gallerypicture']) || empty($_FILES['gallerypicture'])){
         http_response_code(401);
         echo("Unauthorized");
@@ -33,6 +33,45 @@
     }
 
     if (move_uploaded_file($_FILES["gallerypicture"]["tmp_name"], $target_file)) {
+        $database_key = file_get_contents('/api-keys/database.key');
+        $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
+        $valid_database = false;
+
+        if(!mysqli_connect_errno()){
+            $valid_database = true;
+            $gallery_picture_order = 1;
+
+            $sql = "UPDATE gallery_pictures SET gallery_picture_order=gallery_picture_order+1;";
+
+            if($stmt = $mysqli_con->prepare($sql)){
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->close();
+            } else {
+                $valid_database = false;
+            }
+
+            $sql = "INSERT IGNORE INTO gallery_pictures (gallery_picture_location, gallery_picture_order, gallery_picture_date) VALUES ( ? , ? ,'" . date("Y-m-d H:i:s") . "');";
+
+            if($stmt = $mysqli_con->prepare($sql)){
+                $gallery_picture_location = basename($_FILES["gallerypicture"]["name"]);
+                $stmt->bind_param('si', $gallery_picture_location, $gallery_picture_order);
+                $stmt->execute();
+                $stmt->store_result();
+                $stmt->close();
+            } else {
+                $valid_database = false;
+            }
+        }
+        $mysqli_con->close();
+
+        if( !$valid_database ){
+            unlink($target_file);
+            http_response_code(500);
+            echo("Invalid database");
+            exit(0);
+        }
+
         http_response_code(200);
         echo("Success!");
         exit(0);

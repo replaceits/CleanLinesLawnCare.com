@@ -11,6 +11,8 @@ CREATE TABLE users(
 CREATE TABLE gallery_pictures(
     gallery_picture_id int(5) NOT NULL AUTO_INCREMENT,
     gallery_picture_location nvarchar(5000) NOT NULL,
+    gallery_picture_order int(5) NOT NULL,
+    gallery_picture_date DATETIME NOT NULL,
     PRIMARY KEY(gallery_picture_id)
 );
 
