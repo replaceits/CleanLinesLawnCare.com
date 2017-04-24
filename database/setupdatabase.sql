@@ -22,5 +22,6 @@ CREATE TABLE reviews(
     review_name nvarchar(255) NOT NULL,
     review_content nvarchar(5000) NOT NULL,
     review_date DATETIME NOT NULL,
+    review_ip INT UNSIGNED NOT NULL,
     PRIMARY KEY(review_id)
 );

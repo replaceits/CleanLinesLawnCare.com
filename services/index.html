@@ -28,7 +28,7 @@
 		<meta name="twitter:image" content="https://www.cleanlineslawncare.com/images/logo-small.png">
 		<meta name="twitter:image:alt" content="Clean Lines Lawn Care">
 
-        <base href="https://www.cleanlineslawncare.com/">
+        <base href="https://replaceits.com/CleanLinesLawnCare.com/build/CleanLinesLawnCare.com/">
 
         <title>Clean Lines Lawn Care - Services</title>
 
@@ -67,23 +67,23 @@
                         <li><a href="contact">Contact Us</a></li>
                         <li><a href="estimate">Free Estimate</a></li>
                         <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services<span class="caret"></span> <span class="sr-only">(current)</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="services">All Services</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="services#NewInstallation">New Installation</a></li>
-                            <li><a href="services#SeedingFertilizing">Seeding &amp; Fertilizing</a></li>
-                            <li><a href="services#LawnAeration">Lawn Aeration</a></li>
-                            <li><a href="services#Mowing">Mowing</a></li>
-                            <li><a href="services#Mulching">Mulching</a></li>
-                            <li><a href="services#GutterCleaning">Gutter Cleaning</a></li>
-                            <li><a href="services#LeafRemoval">Leaf Removal</a></li>
-                            <li><a href="services#ShrubberyCare">Shrubbery Care</a></li>
-                            <li><a href="services#Pruning">Pruning</a></li>
-                            <li><a href="services#WeedControl">Weed Control</a></li>
-                            <li><a href="services#CompleteLawnService">Complete Lawn Service</a></li>
-                            <li><a href="services#SnowRemoval">Snow Removal</a></li>
-                        </ul>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services<span class="caret"></span> <span class="sr-only">(current)</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="services">All Services</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="services#NewInstallation">New Installation</a></li>
+                                <li><a href="services#SeedingFertilizing">Seeding &amp; Fertilizing</a></li>
+                                <li><a href="services#LawnAeration">Lawn Aeration</a></li>
+                                <li><a href="services#Mowing">Mowing</a></li>
+                                <li><a href="services#Mulching">Mulching</a></li>
+                                <li><a href="services#GutterCleaning">Gutter Cleaning</a></li>
+                                <li><a href="services#LeafRemoval">Leaf Removal</a></li>
+                                <li><a href="services#ShrubberyCare">Shrubbery Care</a></li>
+                                <li><a href="services#Pruning">Pruning</a></li>
+                                <li><a href="services#WeedControl">Weed Control</a></li>
+                                <li><a href="services#CompleteLawnService">Complete Lawn Service</a></li>
+                                <li><a href="services#SnowRemoval">Snow Removal</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -100,40 +100,92 @@
         <main class="container">
             <div class="row">
                 <!-- Side bar for tablets and computers -->
-                <aside class="col-md-2 sidebar hidden-xs computer-sidebar">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;<a href="https://www.facebook.com/Clean-Lines-Lawn-Care-412959632223355/" target="_blank">Facebook</a>
+                <aside class="col-md-2 hidden-xs computer-sidebar">
+                    <div class="sidebar">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;<a href="https://www.facebook.com/Clean-Lines-Lawn-Care-412959632223355/" target="_blank">Facebook</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="spacer"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;(434) 981-9705
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="spacer"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="hoursOpen" class="col-md-12">
+                                <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>&nbsp;7:30AM - 6:00PM
+                            </div>
+                            <script type="text/javascript">
+                                var hoursOpen = document.getElementById('hoursOpen');
+                                var time = new Date();
+                                if(time.getHours() >= 7 && time.getMinutes() >= 30 && time.getHours() < 18){
+                                    hoursOpen.className += " hours-open";
+                                } else {
+                                    hoursOpen.className += " hours-closed";
+                                }
+                            </script>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
+                            <br>
                             <div class="spacer"></div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;(434) 981-9705
+                    <div class="sidebar hidden-xs hidden-sm" data-spy="affix" data-offset-top="320" style="width: 166px;top:80px;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='NewInstallation';">New Installation</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='SeedingFertilizing';">Seeding &amp; Fertilizing</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='LawnAeration';">Lawn Aeration</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='Mowing';">Mowing</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='Mulching';">Mulching</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='GutterCleaning';">Gutter Cleaning</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='LeafRemoval';">Leaf Removal</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='ShrubberyCare';">Shrubbery Care</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='Pruning';">Pruning</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='WeedControl';">Weed Control</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='CompleteLawnService';">Complete Lawn Service</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="javascript:;" onclick="document.location.hash='SnowRemoval';">Snow Removal</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="spacer"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div id="hoursOpen" class="col-md-12">
-                            <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>&nbsp;7:30AM - 6:00PM
-                        </div>
-                        <script type="text/javascript">
-                            var hoursOpen = document.getElementById('hoursOpen');
-                            var time = new Date();
-                            if(time.getHours() >= 7 && time.getMinutes() >= 30 && time.getHours() < 18){
-                                hoursOpen.className += " hours-open";
-                            } else {
-                                hoursOpen.className += " hours-closed";
-                            }
-                        </script>
                     </div>
                 </aside>
                 <!-- End side bar -->
@@ -155,15 +207,138 @@
 
                     <section>
                         <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h4>New Installation</h4>
+                            <div class="col-sm-4 text-center">
+                                <div class="thumbnail">
+                                    <img src="images/AnotherNewInstillationAfter.jpg" alt="New Installation">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>New Installation</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>Your landscape can include more than just greenery. We offer new instillation of lawns, trees, shrubs, or landscaping, as well as a variety of hardscapes. Discuss any ideas you may have for new instillations for your property and we will see what we can do to meet your needs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row" id="SeedingFertilizing">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Seeding &amp; Fertilizing</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>We offer a variety of seed and fertilizer for your lawn, depending on the area and conditions, including shade or full sun. The type of fertilizer you use and the time it is applied has an impact on the quality of your lawn or product. We will always ensure that we choose the correct seed and fertilizer for your plant and lawn care needs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="thumbnail">
+                                    <img src="images/Seeding.jpg" alt="Mowing">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row" id="LawnAeration">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-4 text-center">
+                                <div class="thumbnail">
+                                    <img src="images/Aeration1.jpg" alt="New Installation">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Lawn Aeration</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <p>Removing small cores of soil from your lawn reduces soil compaction and promotes root growth for healthier grass. Technically speaking, aeration is the naturally occurring process of air exchange between the soil and its surrounding atmosphere. Practically speaking, aeration is the process of mechanically removing small plugs of thatch and soil from the lawn to improve natural soil aeration. It’s commonly called “core aeration” in the lawn service industry, and you may have heard of it as soil cultivation (coring, spiking and slicing). Most homeowners simply call it aeration.</p>
+
+                                                <p>We have had the best results of longer lasting, thicker lush properties when this is done in the Fall. This gives the grass all winter to establish a good strong root system and germination period so that it will be able to withstand drought and heat throughout the summer months.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="spacer"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h4>What are the benefits of aeration?</h4>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
-                                <div class="thumbnail">
-                                    <img src="images/newinstallation.jpg" alt="New Installation">
+                            <div class="col-xs-12 text-center">
+                                <p>Core aeration can help make your lawn healthier and reduce its maintenance requirements through these means</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Improved air exchange between the soil and atmosphere</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Enhanced soil water uptake</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Improved fertilizer uptake and use</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Reduced water runoff and puddling</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Stronger turfgrass roots</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Reduced soil compaction</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Enhanced heat and drought stress tolerance</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Improved resiliency and cushioning</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="list-group-item" style="min-height: 60px;margin-bottom:10px;display:flex;align-items: center;justify-content: center;">Enhanced thatch breakdown</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -178,15 +353,85 @@
 
                     <section>
                         <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h4>Mowing</h4>
-                            </div>
-                        </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Mowing</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>We take pride in maintaining your lawn. We always take our time to make sure the lawn is serviced to the customer’s satisfaction. If the customer is happy, then we are happy as well. We will do our best to meet all your lawn care needs.</p>
 
-                        <div class="row">
-                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
+                                        <p>It’s important to get on a seasonal regimen. We never make you sign a contract and do not require you to pay us using a weekly plan, especially if services are not always needed. Please do not hesitate to contact us with any questions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="thumbnail">
                                     <img src="images/lawn-example.jpg" alt="Mowing">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row" id="Mulching">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="thumbnail">
+                                    <img src="images/Mulching1.jpg" alt="Mulching">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Mulching</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>We take pride in maintaining your lawn. We always take our time to make sure the lawn is serviced to the customer’s satisfaction. If the customer is happy, then we are happy as well. We will do our best to meet all your lawn care needs.</p>
+
+                                        <p>It’s important to get on a seasonal regimen. We never make you sign a contract and do not require you to pay us using a weekly plan, especially if services are not always needed. Please do not hesitate to contact us with any questions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row" id="GutterCleaning">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Gutter Cleaning</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>We take pride in maintaining your lawn. We always take our time to make sure the lawn is serviced to the customer’s satisfaction. If the customer is happy, then we are happy as well. We will do our best to meet all your lawn care needs.</p>
+
+                                        <p>It’s important to get on a seasonal regimen. We never make you sign a contract and do not require you to pay us using a weekly plan, especially if services are not always needed. Please do not hesitate to contact us with any questions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="thumbnail">
+                                    <img src="images/" alt="Gutter Cleaning">
                                 </div>
                             </div>
                         </div>
@@ -224,6 +469,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p>Have you ever wondered why there is no grass on the forest floor? There is just a bunch of dead and decaying leaves that creates a non-sustainable environment for grass. The same can happen to your lawn without regular leaf removal overtime.</p>
+
+                                <p>One of the main needs of grass to grow favorably is light. When leaves are left on the grass for too long, it blocks out the sun and your grass will start to stress. Fall is the best time of the year for the grass to recover from the summer, so it is always best to keep the leaf litter at a minimum during this period so the turf is getting maximum light and can get thick before the winter period. This time of the year is also when many lawns are getting their best light since the tree shade is at a minimum once all the leaves drop.</p>
+
+                                <p>Leaf litter also holds moisture and slows evaporation. If the accumulated leaves sit for too long, this excess moisture will cause decay and in conjunction with the lack of sunlight you will see marked decline in your turf quality.</p>
+
+                                <p>Leaf litter left for too long decreases vigor and leads to bare spots. Once Spring rolls around, the turf will be slow to respond and weeds will certainly take advantage of the bare spots and thin turf that are left behind.</p>
+                            </div>
+                        </div>
                     </section>
 
                     <div class="row" id="ShrubberyCare">
@@ -235,15 +492,79 @@
 
                     <section>
                         <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h4>Shrubbery Care</h4>
+                            <div class="col-sm-4 text-center">
+                                <div class="thumbnail">
+                                    <img src="images/ShrubberyCareAfter.jpg" alt="Shrubery">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Shrubbery Care</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>Your landscaping often outlines your house and creates a frame around it. A well cared for yard not only enhances the look of your surroundings, but it also significantly increases the overall value of your property. Your lawn often covers a majority of your land, and the shrubbery enhances the look of your property; this shrubbery often becomes natural fences and/or wind barriers for your home. Providing the proper care and maintenance for your yard requires careful planning, and we always strive to provide quality care for all your lawn care needs.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </section>
 
+                    <div class="row" id="Pruning">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
                         <div class="row">
-                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Pruning</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>Your landscaping often outlines your house and creates a frame around it. A well cared for yard not only enhances the look of your surroundings, but it also significantly increases the overall value of your property. Your lawn often covers a majority of your land, and the shrubbery enhances the look of your property; this shrubbery often becomes natural fences and/or wind barriers for your home. Providing the proper care and maintenance for your yard requires careful planning, and we always strive to provide quality care for all your lawn care needs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 text-center">
                                 <div class="thumbnail">
-                                    <img src="images/shrubery.jpg" alt="Shrubery">
+                                    <img src="images/PruningAfter.jpg" alt="Pruning">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="row" id="WeedControl">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-4 text-center">
+                                <div class="thumbnail">
+                                    <img src="images/WeedingAfter.jpg" alt="Weed Control">
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Weed Control</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>Your landscaping often outlines your house and creates a frame around it. A well cared for yard not only enhances the look of your surroundings, but it also significantly increases the overall value of your property. Your lawn often covers a majority of your land, and the shrubbery enhances the look of your property; this shrubbery often becomes natural fences and/or wind barriers for your home. Providing the proper care and maintenance for your yard requires careful planning, and we always strive to provide quality care for all your lawn care needs.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -258,29 +579,25 @@
 
                     <section>
                         <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h4>Complete Lawn Service</h4>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Complete Lawn Service</h4>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <p>We offer a complete set of lawn care services, including mowing, blowing debris and leaves, weed-eating, edging flower beds, planting greenery and flowers, and any other service you need to best care for your lawn. We take our time to make sure the job is done right to keep our customers coming back satisfied.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6 text-center col-sm-offset-3 col-xs-offset-0">
+                            <div class="col-sm-4 text-center">
                                 <div class="thumbnail">
-                                    <img src="images/complete.jpg" alt="Complete Lawn Service">
+                                    <img src="images/CompleteLawnCareAfter.jpg" alt="Complete Lawn Service">
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    <div class="row">
-                        <div style="visibility: hidden">
-                            <div id="WeedControl"></div>
-                            <div id="Pruning"></div>
-                            <div id="SnowRemoval"></div>
-                            <div id="Mulching"></div>
-                            <div id="LawnAeration"></div>
-                            <div id="SeedingFertilizing"></div>
-                        </div>
+                    <div class="row" id="SnowRemoval">
                         <div class="col-md-12">
                             <hr>
                             <div class="spacer"></div>
@@ -288,32 +605,37 @@
                     </div>
 
                     <section>
-                        <section class="row">
-                            <div class="col-md-12 text-center">
-                                <h4>Other Services</h4>
+                        <div class="row">
+                            <div class="col-sm-4 text-center">
+                                <div class="thumbnail">
+                                    <img src="images/" alt="Snow Removal">
+                                </div>
                             </div>
-                        </section>
-                        <div class="row text-center">
-                            <div class="col-xs-4">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Seeding &amp; Fertilizing</li>
-                                    <li class="list-group-item">Lawn Aeration</li>
-                                </ul>
-                            </div>
-                            <div class="col-xs-4">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Mulching</li>
-                                    <li class="list-group-item">Pruning</li>
-                                </ul>
-                            </div>
-                            <div class="col-xs-4">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Weed Control</li>
-                                    <li class="list-group-item">Snow Removal</li>
-                                </ul>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <h4>Snow Removal</h4>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <p>We offer a complete set of lawn care services, including mowing, blowing debris and leaves, weed-eating, edging flower beds, planting greenery and flowers, and any other service you need to best care for your lawn. We take our time to make sure the job is done right to keep our customers coming back satisfied.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p><a href="estimate">Click here to get your free estimate!</a></p>
+                        </div>
+                    </div>
                 </section>
                 <!-- End main content -->
 

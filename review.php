@@ -384,10 +384,11 @@
         if(!mysqli_connect_errno()){
             $valid_database = true;
 
-            $sql = "INSERT IGNORE INTO reviews (review_name, review_rating, review_content, review_date) VALUES ( ? , ? , ? ,'" . date("Y-m-d H:i:s") . "');";
+            $sql = "INSERT IGNORE INTO reviews (review_name, review_rating, review_content, review_date, review_ip) VALUES ( ? , ? , ? ,'" . date("Y-m-d H:i:s") . "', ?);";
 
             if($stmt = $mysqli_con->prepare($sql)){
-                $stmt->bind_param('sis', $Name, $Rating, $Review);
+                $review_ip = ip2long($_SERVER['REMOTE_ADDR']);
+                $stmt->bind_param('sisi', $Name, $Rating, $Review, $review_ip);
                 $stmt->execute();
                 $stmt->store_result();
                 $stmt->close();

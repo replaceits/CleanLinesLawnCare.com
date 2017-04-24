@@ -172,7 +172,7 @@
                         ?>
                                         <div class="col-md-3 col-sm-4 col-xs-6">
                                             <div class="thumbnail" style="max-height: 154px;overflow: hidden;">
-                                                <div class="gallery-image" imageLocation="gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>" style="background: url(gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>) no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
+                                                <div class="gallery-image" imageLocation="gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>" style="background: url('gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>') no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
                                                 </div>
                                             </div>
                                         </div>

@@ -284,7 +284,7 @@
                         ?>
                                                 <div class="col-md-3 col-sm-4 col-xs-6 gallery-picture-column">
                                                     <div class="thumbnail" style="overflow: hidden;">
-                                                        <div class="gallery-image" imageLocation="gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>" style="background: url(gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>) no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
+                                                        <div class="gallery-image" imageLocation="gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>" style="background: url('gallery/<?php echo(htmlspecialchars($gallery_picture_location)); ?>') no-repeat center;min-height: 144px; max-height: 144px; overflow: hidden; background-size: cover;">
                                                         </div>
                                                         <div class="caption">
                                                             <input class="input-order"  type="hidden" name="order_<?php echo($gallery_picture_id); ?>" value="<?php echo($gallery_picture_order); ?>">
@@ -389,7 +389,116 @@
                 </div>
             </form>
 
+            <form id="modify-review-form">
+                <div id="modifyReviewModal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Reviews</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="alert alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <?php
+                        if(!mysqli_connect_errno()){
+                            $sql = "SELECT review_id, review_rating, review_name, review_content, review_date, review_ip FROM reviews ORDER BY review_id DESC";
+                                        
+                            if($stmt = $mysqli_con->prepare($sql)){
+                                $stmt->execute();
+                                $stmt->store_result();
+                                $stmt->bind_result($review_id, $review_rating, $review_name, $review_content, $review_date, $review_ip);
+                                $firstPass = true;
+
+                                if($stmt->num_rows > 0){
+                                    while( $stmt->fetch()){
+                                        if($firstPass){
+                                            $firstPass = false;
+                                        } else {
+                    ?>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <hr>
+                                                    <div class="spacer"></div>
+                                                </div>
+                                            </div>
+                                    <?php
+                                        }
+                                    ?>
+                                        <section class="row col-xs-12 review-row">
+                                            <div class="col-xs-12">
+                                                <blockquote>
+                                                    <p style="word-wrap: break-word;overflow:hidden;">
+                                                        <?php
+                                                            //Remove redundant new lines
+                                                            $review_content = str_replace("\r\n","<br>",htmlspecialchars($review_content));
+                                                            $review_content = str_replace("\n\r","<br>",$review_content);
+                                                            $review_content = str_replace("\r",  "<br>",$review_content);
+                                                            $review_content = str_replace("\n",  "<br>",$review_content);
+
+                                                            while(strpos($review_content, "<br><br><br>") !== false){
+                                                                $review_content = str_replace("<br><br><br>","<br><br>",$review_content);
+                                                            }
+
+                                                            echo($review_content);
+                                                        ?>
+                                                    </p>
+                                                    <footer>
+                                                        <em>
+                                                            <?php
+                                                                echo(htmlspecialchars($review_name));
+                                                            ?>
+                                                            &nbsp;&nbsp;&nbsp;
+                                                        </em>
+                                                        <?php
+                                                            for($i = 0; $i < $review_rating; $i++){
+                                                        ?>
+                                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                        <?php
+                                                            }
+                                                            for($i = 0; $i < 5 - $review_rating; $i++){
+                                                        ?>
+                                                                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                    </footer>
+                                                </blockquote>
+                                            </div>
+                                            <div class="col-xs-9 text-left">
+                                                <em>Posted: <?php echo($review_date); ?> From: <?php echo(long2ip($review_ip)); ?></em>
+                                            </div>
+                                            <div class="col-xs-3 text-right">
+                                                <input class="input-delete" type="hidden" name="delete_<?php echo($review_id); ?>" value="0">
+                                                <button type="button" class="btn btn-danger delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;Delete</button>
+                                            </div>
+                                        </section>
+                    <?php
+                                    }
+                                }
+                                $stmt->close();
+                            }
+                        }
+                    ?>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="review-cancel" type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success submit-button">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <div id="backup-gallery" class="hidden"></div>
+            <div id="backup-reviews" class="hidden"></div>
 
         </main>
         <script>
@@ -397,10 +506,47 @@
                 $('#reviewModal .alert').hide();
                 $('#uploadModal .alert').hide();
                 $('#modifyGalleryModal .alert').hide();
+                $('#modifyReviewModal .alert').hide();
 
                 $('.alert').on('close.bs.alert',function(){
                     $(this).clone(true,false).appendTo($(this).parent());
                     $(this).parent().find('.alert').hide();
+                });
+
+                $('#review-modify').click(function(){
+                    $('#modifyGalleryModal .alert').hide();
+                    $('#reviewModal').modal('hide');
+                    $('#uploadModal').modal('hide');
+                    $('#modifyGalleryModal').modal('hide');
+                    $('#modifyReviewModal').modal('show');
+                });
+
+                $('#review-cancel').click(function(){
+                    $('#modifyReviewModal .modal-body').remove();
+                    $('#backup-reviews').clone(true,true).children().insertAfter('#modifyReviewModal .modal-header');
+                });
+
+                $('#modifyReviewModal .submit-button').click(function(){
+                    $.ajax({
+                        method: 'POST',
+                        url: 'modifyreview.php',
+                        cache: false,
+                        data: $('#modify-review-form').serialize()
+                    }).done( function( msg ){
+                        let dismissButton = $('#modifyReviewModal .alert').find('button');
+                        $('#modifyReviewModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-success').text('Your changes have been saved!').append(dismissButton).show();
+                        $('#modifyReviewModal').animate({ scrollTop: 0 }, 'slow');
+                    }).fail( function( jqXHR, textStatus ){
+                        let dismissButton = $('#modifyReviewModal .alert').find('button');
+                        $('#modifyReviewModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-danger').text('We\'re sorry but something wen\'t wrong :( Please try again later.').append(dismissButton).show();
+                        $('#modifyReviewModal').animate({ scrollTop: 0 }, 'slow');
+                    });
+                });
+
+                $('#modifyReviewModal .review-row .delete').click(function(){
+                    $(this).parent().find('.input-delete').val('1');
+                    $(this).parent().parent().next('div.row').hide();
+                    $(this).parent().parent().hide();
                 });
 
                 $('#gallery-modify').click(function(){
@@ -489,6 +635,7 @@
                     reader.readAsDataURL(this.files[0]);
 
                     $('#reviewModal').modal('hide');
+                    $('#modifyGalleryModal').modal('hide');
                     $('#uploadModal').modal('show');
                 });
 
@@ -500,6 +647,7 @@
                     $('textarea').val("").parent().removeClass('has-error').removeClass('has-success');
 
                     $('#uploadModal').modal('hide');
+                    $('#modifyGalleryModal').modal('hide');
                     $('#reviewModal').modal('show'); 
                 });
 
@@ -644,7 +792,10 @@
                     }
                 });
 
+                // Back up both the reviews and gallery in case user cancels
+                // Must be after all events are hooked so we properly inherit
                 $('#modifyGalleryModal .modal-body').clone(true,true).appendTo('#backup-gallery');
+                $('#modifyReviewModal  .modal-body').clone(true,true).appendTo('#backup-reviews');
             });
         </script>
     </body>

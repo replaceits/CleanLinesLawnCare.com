@@ -97,7 +97,7 @@ FONTS_TMP_TARGET_PATH = $(shell echo $(FONTS_TARGET_PATH) | $(ESCAPE_SED))
 FONTS_TARGETS     = $(shell echo $(FONTS_FILES) | sed 's/$(FONTS_TMP_TARGET)/$(FONTS_TMP_TARGET_PATH)/g')
 
 HTML_FILE = index.html
-MISC_FILES = humans.txt robots.txt sitemap.xml message.php estimate.php android-chrome-192x192.png android-chrome-512x512.png apple-touch-icon.png browserconfig.xml favicon-16x16.png favicon-32x32.png favicon.ico manifest.json mstile-70x70.png mstile-150x150.png safari-pinned-tab.svg review.php galleryupload.php modifygallery.php
+MISC_FILES = humans.txt robots.txt sitemap.xml message.php estimate.php android-chrome-192x192.png android-chrome-512x512.png apple-touch-icon.png browserconfig.xml favicon-16x16.png favicon-32x32.png favicon.ico manifest.json mstile-70x70.png mstile-150x150.png safari-pinned-tab.svg review.php galleryupload.php modifygallery.php modifyreview.php
 
 BUILD_PATH_ESCAPED = $(shell echo $(BUILD_PATH) | $(ESCAPE_SED))
 HTML_FILE_TARGET = $(shell echo $(HTML_FILE) | sed 's/^/$(BUILD_PATH_ESCAPED)/g')
