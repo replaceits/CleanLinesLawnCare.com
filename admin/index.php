@@ -613,9 +613,11 @@
                     }).done( function( msg ){
                         let dismissButton = $('#modifyGalleryModal .alert').find('button');
                         $('#modifyGalleryModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-success').text('Your changes have been saved!').append(dismissButton).show();
+                        $('#modifyGalleryModal').animate({ scrollTop: 0 }, 'slow');
                     }).fail( function( jqXHR, textStatus ){
                         let dismissButton = $('#modifyGalleryModal .alert').find('button');
                         $('#modifyGalleryModal .alert').removeClass('alert-success').removeClass('alert-danger').addClass('alert-danger').text('We\'re sorry but something wen\'t wrong :( Please try again later.').append(dismissButton).show();
+                        $('#modifyGalleryModal').animate({ scrollTop: 0 }, 'slow');
                     });
                 });
 
