@@ -28,7 +28,7 @@
 		<meta name="twitter:image" content="https://www.cleanlineslawncare.com/images/logo-small.png">
 		<meta name="twitter:image:alt" content="Clean Lines Lawn Care">
 
-        <base href="https://replaceits.com/CleanLinesLawnCare.com/build/CleanLinesLawnCare.com/">
+        <base href="https://www.cleanlineslawncare.com/">
 
         <title>Clean Lines Lawn Care - Reviews</title>
 
