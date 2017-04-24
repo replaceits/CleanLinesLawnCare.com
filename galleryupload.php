@@ -77,7 +77,7 @@
         exit(0);
     } else {
         http_response_code(400);
-        echo(": " . $_FILES["gallerypicture"]["tmp_name"]);
+        echo("Image couldn't be uploaded");
         exit(0);
     }
 ?>
