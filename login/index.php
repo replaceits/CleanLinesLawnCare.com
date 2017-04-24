@@ -2,7 +2,7 @@
     session_start();
 
     if(isset($_SESSION['email']) && !empty($_SESSION['email'])){
-        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/admin/");
+        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "admin/");
         exit(0);
     }
 
