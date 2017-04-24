@@ -77,7 +77,7 @@
         exit(0);
     } else {
         http_response_code(400);
-        echo("There was an error uploading to " . $target_dir);
+        echo("There was an error uploading to " . $target_file);
         exit(0);
     }
 ?>
