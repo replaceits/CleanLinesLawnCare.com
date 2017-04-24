@@ -5,6 +5,6 @@
     if(isset($_SESSION['email'])){
         unset($_SESSION['email']);
     }
-    header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/login/");
+    header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "login/");
     exit(0);
 ?>

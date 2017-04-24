@@ -2,7 +2,7 @@
     session_start();
 
     if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
-        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "/login/");
+        header('Location: ' . dirname($_SERVER['REQUEST_URI']) . "login/");
         exit(0);
     }
     $database_key = file_get_contents('/api-keys/database.key');
