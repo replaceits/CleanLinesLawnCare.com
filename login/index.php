@@ -134,8 +134,8 @@
                                     <p>
                                         You will be automatically redirected in <span id="redirect-counter" class="counter">10</span> seconds.
                                         <br>
-                                        Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "/admin/" : "/login/") );?>">click here</a> if you are not automatically redirected.
-                                        <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "/admin/" : "/login/")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
+                                        Please <a href="<?php echo(dirname($_SERVER['REQUEST_URI']) . ($valid_login ? "admin/" : "login/") );?>">click here</a> if you are not automatically redirected.
+                                        <script type="text/javascript">function timer(){if(count-=1,document.getElementById("redirect-counter").innerHTML=count,count<=0)return clearInterval(counter),void(window.location=document.URL.substr(0,document.URL.lastIndexOf("/")) + "<?php echo(($valid_login ? "admin/" : "login/")); ?>" )}var count=10,counter=setInterval(timer,1e3);</script>
                                     </p>
                                 </div>
                             </div>
