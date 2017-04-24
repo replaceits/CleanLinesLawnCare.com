@@ -8,8 +8,7 @@
         exit(0);
     }
 
-    //$target_dir = __DIR__ . "/gallery/";
-    $target_dir = "/tmp/";
+    $target_dir = __DIR__ . "/gallery/";
     $target_file = $target_dir . basename($_FILES["gallerypicture"]["name"]);
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     
