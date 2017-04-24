@@ -77,7 +77,7 @@
         exit(0);
     } else {
         http_response_code(400);
-        echo(": " . $target_file);
+        echo(": " . $_FILES["gallerypicture"]["tmp_name"]);
         exit(0);
     }
 ?>
