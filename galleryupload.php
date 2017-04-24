@@ -77,7 +77,7 @@
         exit(0);
     } else {
         http_response_code(400);
-        echo($_FILES["gallerypicture"]["error"]);
+        echo(": " . $_FILES["gallerypicture"]["error"]);
         exit(0);
     }
 ?>
