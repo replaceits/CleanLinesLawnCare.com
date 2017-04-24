@@ -32,9 +32,6 @@
         exit(0);
     }
 
-    ini_set('log_errors',1);
-    ini_set('error_log','/var/log/httpd/php_error.log');
-
     if (move_uploaded_file($_FILES["gallerypicture"]["tmp_name"], $target_file)) {
         $database_key = file_get_contents('/api-keys/database.key');
         $mysqli_con = new mysqli("localhost","http",$database_key,"cleanlineslawncare");
@@ -80,7 +77,7 @@
         exit(0);
     } else {
         http_response_code(400);
-        echo("There was an error uploading to " . $target_file);
+        echo($_FILES["gallerypicture"]["error"]);
         exit(0);
     }
 ?>
