@@ -129,7 +129,7 @@
                         <script type="text/javascript">
                             var hoursOpen = document.getElementById('hoursOpen');
                             var time = new Date();
-                            if(time.getHours() >= 7 && time.getMinutes() >= 30 && time.getHours() < 18){
+                            if(time.getHours() == 7 && time.getMinutes() >= 30 || time.getHours() >= 8 && time.getHours() < 18){
                                 hoursOpen.className += " hours-open";
                             } else {
                                 hoursOpen.className += " hours-closed";
@@ -418,7 +418,7 @@
                         <script type="text/javascript">
                             hoursOpen = document.getElementById('hoursOpenSecond');
                             time = new Date();
-                            if(time.getHours() >= 7 && time.getMinutes() >= 30 && time.getHours() < 18){
+                            if(time.getHours() == 7 && time.getMinutes() >= 30 || time.getHours() >= 8 && time.getHours() < 18){
                                 hoursOpen.className += " hours-open";
                             } else {
                                 hoursOpen.className += " hours-closed";
